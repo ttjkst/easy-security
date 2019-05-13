@@ -1,6 +1,6 @@
-package org.github.easy.security.core.user;
+package org.easySecurity.core.user;
 
-import org.github.easy.security.core.authority.AuthorityEntity;
+import org.easySecurity.core.authority.AuthorityEntity;
 
 import java.io.Serializable;
 import java.util.Collections;

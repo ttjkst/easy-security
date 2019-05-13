@@ -1,6 +1,5 @@
-package org.github.easy.security.core.user;
+package org.easySecurity.core.user;
 
-import org.github.easy.security.core.utils.AuthorityUtils;
 import org.springframework.http.*;
 import org.springframework.security.oauth2.client.userinfo.OAuth2UserRequest;
 import org.springframework.security.oauth2.client.userinfo.OAuth2UserService;
@@ -11,9 +10,18 @@ import org.springframework.web.util.UriComponentsBuilder;
 
 import java.net.URI;
 import java.util.Collections;
+import java.util.HashMap;
+import java.util.Map;
+import java.util.function.Function;
 
-public class OAuth2ClientUserService implements OAuth2UserService<OAuth2UserRequest, OAuth2User> {
+public class OAuth2GithubUserService implements OAuth2UserService<OAuth2UserRequest, OAuth2User> {
 
+    private Function<String,UserInfo> userInfoExtractor;
+
+
+    public OAuth2GithubUserService(Function<String, UserInfo> userInfoExtractor) {
+        this.userInfoExtractor = userInfoExtractor;
+    }
 
     @Override
     public OAuth2User loadUser(OAuth2UserRequest userRequest) throws OAuth2AuthenticationException {
@@ -27,9 +35,16 @@ public class OAuth2ClientUserService implements OAuth2UserService<OAuth2UserRequ
                     .build()
                     .toUri();
             RequestEntity<?> requestEntity         = new RequestEntity<>(headers, HttpMethod.GET, uri);
-            ResponseEntity<UserInfoEnity> exchange = restTemplate.exchange(requestEntity, UserInfoEnity.class);
-            UserInfoEnity userInfoEnity            = exchange.getBody();
-            return new OAuth2UserForUserInfo(AuthorityUtils.packGrantedAuthoritys(userInfoEnity.getAuthorities()),userInfoEnity.getUsername(),userInfoEnity.getAuthorityEntities());
+            ResponseEntity<GithubUser> exchange = restTemplate.exchange(requestEntity, GithubUser.class);
+            GithubUser githubUser            = exchange.getBody();
+            if(githubUser==null){
+                return  null;
+            }
+            UserInfo userInfo = userInfoExtractor.apply(githubUser.getName());
+            Map<String,Object> extra = new HashMap<>(2);
+            extra.put(OAuth2UserWithMultOAuth2Info.GITHUB_USER,githubUser);
+            extra.put(OAuth2UserWithMultOAuth2Info.GITHUB_USER_ACCESS_CODE,userRequest.getAccessToken());
+            return new OAuth2UserWithMultOAuth2Info(userInfo,extra);
         }catch (Exception e){
             throw new RuntimeException("can not load userInfo for authoriaztion server",e);
         }

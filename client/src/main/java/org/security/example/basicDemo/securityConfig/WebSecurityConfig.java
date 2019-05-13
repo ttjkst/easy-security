@@ -1,8 +1,8 @@
 package org.security.example.basicDemo.securityConfig;
 
 
-import org.github.easy.security.core.user.OAuth2ClientUserService;
-import org.github.easy.security.core.voters.FilterSecurityInterceptorObjectPostProcessor;
+import org.easySecurity.core.user.OAuth2ClientUserService;
+import org.easySecurity.core.voters.AddVotersToFilterSecurityInterceptorHelper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
 import org.springframework.security.authentication.AuthenticationManager;
@@ -40,7 +40,8 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
 						.anyRequest()
 						.authenticated()
                 .and()
-					.authorizeRequests().withObjectPostProcessor(new FilterSecurityInterceptorObjectPostProcessor())
+					.authorizeRequests()
+				    //.withObjectPostProcessor(new AddVotersToFilterSecurityInterceptorHelper())
 					.antMatchers("oauth2/**")
 					.hasRole("ADMIN")
 				    .antMatchers("/OAuth/login/**","/OAuth/login/process/**","/login/end/fail")

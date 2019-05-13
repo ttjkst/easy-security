@@ -2,9 +2,10 @@ package org.oauth.authoriaztion.securityConfig;
 
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
-import org.github.easy.security.core.user.OAuth2GithubUserService;
-import org.github.easy.security.core.user.UserInfo;
-import org.github.easy.security.core.voters.FilterSecurityInterceptorObjectPostProcessor;
+import org.easySecurity.core.user.OAuth2GithubUserService;
+import org.easySecurity.core.user.UserInfo;
+import org.easySecurity.core.voters.AddVotersToFilterSecurityInterceptorHelper;
+import org.easySecurity.core.voters.UserInfoWebExpresssionAuthorityVoter;
 import org.oauth.authoriaztion.user.UserInfoDetailService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
@@ -22,6 +23,8 @@ import org.springframework.security.oauth2.provider.OAuth2RequestFactory;
 import org.springframework.security.oauth2.provider.endpoint.TokenEndpointAuthenticationFilter;
 import org.springframework.security.web.authentication.www.BasicAuthenticationFilter;
 import org.springframework.security.web.util.matcher.AntPathRequestMatcher;
+
+import java.util.Arrays;
 
 @EnableWebSecurity
 @EnableGlobalMethodSecurity(securedEnabled = true)
@@ -42,7 +45,7 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
                 .requireCsrfProtectionMatcher(new AntPathRequestMatcher("/oauth/**")).disable()
                 .authorizeRequests()
                      .antMatchers("/login/**","/").permitAll()
-                     .withObjectPostProcessor(new FilterSecurityInterceptorObjectPostProcessor())
+                     .withObjectPostProcessor(new AddVotersToFilterSecurityInterceptorHelper(Arrays.asList(new UserInfoWebExpresssionAuthorityVoter())))
                 .and()
                     .formLogin()
                          .loginPage("/login/page")

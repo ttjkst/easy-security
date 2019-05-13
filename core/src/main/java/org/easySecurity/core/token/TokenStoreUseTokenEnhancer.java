@@ -1,4 +1,4 @@
-package org.github.easy.security.core.token;
+package org.easySecurity.core.token;
 
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.oauth2.common.OAuth2AccessToken;

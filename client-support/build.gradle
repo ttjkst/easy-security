@@ -1,0 +1,15 @@
+plugins {
+    id 'org.springframework.boot' version '2.1.2.RELEASE'
+    id("io.spring.dependency-management") version "1.0.6.RELEASE"
+}
+dependencies {
+    compile project(":core")
+    compileOnly('org.springframework.boot:spring-boot-starter-security')
+    compileOnly('org.springframework.security:spring-security-oauth2-core')
+    compileOnly('org.springframework.security:spring-security-oauth2-client')
+    compileOnly('org.springframework.security.oauth:spring-security-oauth2:2.3.4.RELEASE')
+    compileOnly('javax.servlet:javax.servlet-api:3.1.0')
+    compileOnly('org.springframework.security:spring-security-config')
+
+
+}

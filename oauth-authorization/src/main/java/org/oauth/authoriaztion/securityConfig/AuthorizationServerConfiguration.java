@@ -4,7 +4,7 @@ import com.nimbusds.jose.jwk.JWKSet;
 import com.nimbusds.jose.jwk.RSAKey;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
-import org.github.easy.security.core.token.TokenStoreUseTokenEnhancer;
+import org.easySecurity.core.token.TokenStoreUseTokenEnhancer;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.context.annotation.Bean;

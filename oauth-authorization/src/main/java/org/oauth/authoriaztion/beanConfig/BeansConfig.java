@@ -2,7 +2,7 @@ package org.oauth.authoriaztion.beanConfig;
 
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
-import org.github.easy.security.core.token.TokenStoreUseTokenEnhancer;
+import org.easySecurity.core.token.TokenStoreUseTokenEnhancer;
 import org.oauth.authoriaztion.keyPair.KeyPairUtils;
 import org.oauth.authoriaztion.user.UserInfoDetailService;
 import org.springframework.beans.factory.annotation.Autowired;

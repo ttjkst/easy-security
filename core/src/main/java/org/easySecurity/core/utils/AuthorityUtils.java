@@ -1,6 +1,6 @@
-package org.github.easy.security.core.utils;
+package org.easySecurity.core.utils;
 
-import org.github.easy.security.core.authority.AuthorityEntity;
+import org.easySecurity.core.authority.AuthorityEntity;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.web.util.matcher.AntPathRequestMatcher;
 import org.springframework.web.util.UrlPathHelper;

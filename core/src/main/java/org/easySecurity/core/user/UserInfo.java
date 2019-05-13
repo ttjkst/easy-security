@@ -1,7 +1,7 @@
-package org.github.easy.security.core.user;
+package org.easySecurity.core.user;
 
-import org.github.easy.security.core.authority.AuthorityEntity;
-import org.github.easy.security.core.utils.AuthorityUtils;
+import org.easySecurity.core.authority.AuthorityEntity;
+import org.easySecurity.core.utils.AuthorityUtils;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.web.util.matcher.AntPathRequestMatcher;

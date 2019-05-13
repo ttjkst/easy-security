@@ -2,9 +2,9 @@ package org.oauth.authoriaztion.controller;
 
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
-import org.github.easy.security.core.token.TokenStoreUseTokenEnhancer;
-import org.github.easy.security.core.user.UserInfo;
-import org.github.easy.security.core.user.UserInfoEnity;
+import org.easySecurity.core.token.TokenStoreUseTokenEnhancer;
+import org.easySecurity.core.user.UserInfo;
+import org.easySecurity.core.user.UserInfoEnity;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.security.core.Authentication;

@@ -1,9 +1,9 @@
-package org.github.easy.security.core.voters;
+package org.easySecurity.core.voters;
 
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
-import org.github.easy.security.core.authority.AuthorityEntity;
-import org.github.easy.security.core.user.OAuth2UserForUserInfo;
+import org.easySecurity.core.authority.AuthorityEntity;
+import org.easySecurity.core.user.OAuth2UserForUserInfo;
 import org.springframework.security.access.AccessDecisionVoter;
 import org.springframework.security.access.ConfigAttribute;
 import org.springframework.security.core.Authentication;

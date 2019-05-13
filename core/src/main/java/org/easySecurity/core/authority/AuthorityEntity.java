@@ -1,4 +1,4 @@
-package org.github.easy.security.core.authority;
+package org.easySecurity.core.authority;
 
 import java.io.Serializable;
 
