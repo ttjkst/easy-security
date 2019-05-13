@@ -1,0 +1,35 @@
+/*
+ * The  children of  common configuration for gradle configuration.
+ *  */
+subprojects {
+    buildscript{
+        ext{
+            springBootVersion='2.1.2.RELEASE'
+        }
+        repositories {
+           maven {
+               url "https://maven.aliyun.com/repository/spring-plugin"
+           }
+            mavenCentral()
+        }
+        /**
+         * for gradle compiler dependencies which they would not be imported in runtime.
+         * */
+        dependencies {
+            classpath("org.springframework.boot:spring-boot-gradle-plugin:${springBootVersion}")
+        }
+    }
+    repositories {
+        maven {
+            url "https://maven.aliyun.com/repository/central"
+        }
+        mavenLocal()
+        mavenCentral()
+    }
+    apply plugin: 'java'
+    apply plugin: 'idea'
+    apply plugin: 'maven'
+    sourceCompatibility = 1.8
+    group = 'org.ttjkst.example.security'
+    version = '0.0.1-SNAPSHOT'
+}

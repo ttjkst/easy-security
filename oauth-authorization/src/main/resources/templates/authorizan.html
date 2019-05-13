@@ -1,0 +1,19 @@
+<!-- no use -->
+<html xmlns:th="http://www.thymeleaf.org">
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>authorizan</title>
+</head>
+<body>
+    <form action="/processs" method="post">
+       <label>帐号</label>
+       <input type="text" name="username">
+       <label>密码</label>
+       <input type="password" name="password">
+    </form>
+    <a th:href="@{/oauth2/authorization/github}">github</a>
+<!--                   oauth2/authorization/github-->
+</body>
+</html>
