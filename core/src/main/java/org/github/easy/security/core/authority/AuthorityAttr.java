@@ -1,4 +1,4 @@
-package org.github.securityDemo.core.authority;
+package org.github.easy.security.core.authority;
 
 import org.springframework.security.access.ConfigAttribute;
 import org.springframework.security.web.util.matcher.AntPathRequestMatcher;

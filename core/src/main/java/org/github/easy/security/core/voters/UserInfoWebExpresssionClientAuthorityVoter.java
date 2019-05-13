@@ -1,9 +1,9 @@
-package org.github.securityDemo.core.voters;
+package org.github.easy.security.core.voters;
 
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
-import org.github.securityDemo.core.authority.AuthorityEntity;
-import org.github.securityDemo.core.user.OAuth2UserForUserInfo;
+import org.github.easy.security.core.authority.AuthorityEntity;
+import org.github.easy.security.core.user.OAuth2UserForUserInfo;
 import org.springframework.security.access.AccessDecisionVoter;
 import org.springframework.security.access.ConfigAttribute;
 import org.springframework.security.core.Authentication;
@@ -33,7 +33,7 @@ public class UserInfoWebExpresssionClientAuthorityVoter implements AccessDecisio
     @Override
     public int vote(Authentication authentication, FilterInvocation object, Collection<ConfigAttribute> attributes) {
         HttpServletRequest request = object.getRequest();
-        //only for  org.github.securityDemo.core.user.OAuth2UserForUserInfo
+        //only for  OAuth2UserForUserInfo
         if(authentication.getPrincipal() instanceof OAuth2UserForUserInfo){
             OAuth2UserForUserInfo currUserInfo = (OAuth2UserForUserInfo)authentication.getPrincipal();
             Collection<? extends GrantedAuthority> authorities = authentication.getAuthorities();

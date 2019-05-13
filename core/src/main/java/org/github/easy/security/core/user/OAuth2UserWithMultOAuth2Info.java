@@ -1,4 +1,4 @@
-package org.github.securityDemo.core.user;
+package org.github.easy.security.core.user;
 
 import org.springframework.security.oauth2.core.user.OAuth2User;
 

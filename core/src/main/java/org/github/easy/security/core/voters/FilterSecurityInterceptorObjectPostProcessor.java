@@ -1,4 +1,4 @@
-package org.github.securityDemo.core.voters;
+package org.github.easy.security.core.voters;
 
 import org.springframework.security.access.AccessDecisionManager;
 import org.springframework.security.access.vote.AbstractAccessDecisionManager;

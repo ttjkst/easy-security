@@ -3,7 +3,6 @@ plugins {
     id("io.spring.dependency-management") version "1.0.6.RELEASE"
 }
 dependencies {
-    compile project(":openID-connect-core-server-support")
     compile project(":core")
     implementation('org.springframework.boot:spring-boot-starter-security')
     implementation('org.springframework.boot:spring-boot-starter-web')

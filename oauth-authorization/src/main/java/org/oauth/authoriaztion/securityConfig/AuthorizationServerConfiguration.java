@@ -4,8 +4,7 @@ import com.nimbusds.jose.jwk.JWKSet;
 import com.nimbusds.jose.jwk.RSAKey;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
-import org.github.securityDemo.core.token.TokenStoreUseTokenEnhancer;
-import org.github.ttjkst.openID.connect.token.OpenIdConnectTokenEnhancer;
+import org.github.easy.security.core.token.TokenStoreUseTokenEnhancer;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.context.annotation.Bean;
@@ -38,7 +37,6 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import java.security.*;
 import java.security.interfaces.RSAPublicKey;
 import java.util.Arrays;
-import java.util.Date;
 import java.util.Map;
 
 
@@ -103,14 +101,12 @@ public class AuthorizationServerConfiguration extends AuthorizationServerConfigu
 
     @Override
     public void configure(AuthorizationServerEndpointsConfigurer endpoints) throws Exception {
-        OpenIdConnectTokenEnhancer tokenEnhancer = new OpenIdConnectTokenEnhancer();
-        tokenEnhancer.setKeyPair(keyPair);
         endpoints.tokenStore(getTokenStore())
                 .authenticationManager(authenticationManager)
                 .userApprovalHandler(userApprovalHandler)
                 .accessTokenConverter(accessTokenConverter);
         TokenEnhancerChain tokenEnhancerChain = new TokenEnhancerChain();
-        tokenEnhancerChain.setTokenEnhancers(Arrays.asList(tokenEnhancer,accessTokenConverter,tokenStoreUseTokenEnhancer));
+        tokenEnhancerChain.setTokenEnhancers(Arrays.asList(accessTokenConverter,tokenStoreUseTokenEnhancer));
         endpoints.tokenEnhancer(tokenEnhancerChain);
 
     }

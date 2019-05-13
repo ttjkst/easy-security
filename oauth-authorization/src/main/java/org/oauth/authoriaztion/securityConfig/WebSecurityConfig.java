@@ -2,10 +2,9 @@ package org.oauth.authoriaztion.securityConfig;
 
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
-import org.github.securityDemo.core.user.OAuth2ClientUserService;
-import org.github.securityDemo.core.user.OAuth2GithubUserService;
-import org.github.securityDemo.core.user.UserInfo;
-import org.github.securityDemo.core.voters.FilterSecurityInterceptorObjectPostProcessor;
+import org.github.easy.security.core.user.OAuth2GithubUserService;
+import org.github.easy.security.core.user.UserInfo;
+import org.github.easy.security.core.voters.FilterSecurityInterceptorObjectPostProcessor;
 import org.oauth.authoriaztion.user.UserInfoDetailService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;

@@ -4,17 +4,15 @@ import com.fasterxml.jackson.databind.JavaType;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
-import org.github.securityDemo.core.authority.AuthorityAttr;
-import org.github.securityDemo.core.authority.AuthorityEntity;
-import org.github.securityDemo.core.user.UserInfo;
-import org.github.securityDemo.core.user.UserInfoEnity;
+import org.github.easy.security.core.authority.AuthorityEntity;
+import org.github.easy.security.core.user.UserInfo;
+import org.github.easy.security.core.user.UserInfoEnity;
 import org.springframework.core.io.ClassPathResource;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.security.crypto.factory.PasswordEncoderFactories;
-import org.springframework.security.web.util.matcher.AntPathRequestMatcher;
 import org.springframework.util.StringUtils;
 
 import java.io.IOException;
@@ -59,7 +57,7 @@ public class UserInfoDetailService implements UserDetailsService {
     }
 
     private UserInfo mapToUserInfo(UserInfoEnity enity){
-        Set<org.github.securityDemo.core.authority.AuthorityEntity> entities = enity.getAuthorityEntities();
+        Set<AuthorityEntity> entities = enity.getAuthorityEntities();
         Set<SimpleGrantedAuthority> simpleGrantedAuthorities = enity.getAuthorities()
                 .stream()
                 .map( SimpleGrantedAuthority::new )

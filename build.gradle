@@ -30,6 +30,6 @@ subprojects {
     apply plugin: 'idea'
     apply plugin: 'maven'
     sourceCompatibility = 1.8
-    group = 'org.ttjkst.example.security'
+    group = 'org.github.easy.security'
     version = '0.0.1-SNAPSHOT'
 }

@@ -1,10 +1,8 @@
-package org.github.securityDemo.core.user;
+package org.github.easy.security.core.user;
 
-import org.github.securityDemo.core.authority.AuthorityEntity;
-import org.github.securityDemo.core.utils.AuthorityUtils;
+import org.github.easy.security.core.authority.AuthorityEntity;
+import org.github.easy.security.core.utils.AuthorityUtils;
 import org.springframework.security.core.GrantedAuthority;
-import org.springframework.security.oauth2.core.oidc.OidcIdToken;
-import org.springframework.security.oauth2.core.oidc.user.DefaultOidcUser;
 import org.springframework.security.oauth2.core.user.OAuth2User;
 import org.springframework.security.web.util.matcher.AntPathRequestMatcher;
 

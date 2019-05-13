@@ -1,7 +1,7 @@
-package org.github.securityDemo.core.user;
+package org.github.easy.security.core.user;
 
-import org.github.securityDemo.core.authority.AuthorityEntity;
-import org.github.securityDemo.core.utils.AuthorityUtils;
+import org.github.easy.security.core.authority.AuthorityEntity;
+import org.github.easy.security.core.utils.AuthorityUtils;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.web.util.matcher.AntPathRequestMatcher;
@@ -17,7 +17,7 @@ public class UserInfo implements UserDetails {
     private final Set<? extends GrantedAuthority> authorities;
 
 
-    private final LinkedHashMap<AntPathRequestMatcher,AuthorityEntity> belongToRequestMap;
+    private final LinkedHashMap<AntPathRequestMatcher, AuthorityEntity> belongToRequestMap;
 
     private final boolean accountNonExpired;
     private final boolean accountNonLocked;
