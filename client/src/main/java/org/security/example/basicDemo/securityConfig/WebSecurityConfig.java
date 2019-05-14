@@ -1,8 +1,6 @@
 package org.security.example.basicDemo.securityConfig;
 
 
-import org.easySecurity.core.user.OAuth2ClientUserService;
-import org.easySecurity.core.voters.AddVotersToFilterSecurityInterceptorHelper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
 import org.springframework.security.authentication.AuthenticationManager;
@@ -53,7 +51,6 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
 								.baseUri("/OAuth/login/process")
 						.and()
 							.userInfoEndpoint()
-								.userService(new OAuth2ClientUserService())
 				        .and()
 							.defaultSuccessUrl("/login/end/success")
 				        .permitAll()

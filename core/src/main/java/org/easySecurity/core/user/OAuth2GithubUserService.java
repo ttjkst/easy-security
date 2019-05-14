@@ -1,5 +1,6 @@
 package org.easySecurity.core.user;
 
+import org.easySecurity.core.user.github.GithubUser;
 import org.springframework.http.*;
 import org.springframework.security.oauth2.client.userinfo.OAuth2UserRequest;
 import org.springframework.security.oauth2.client.userinfo.OAuth2UserService;

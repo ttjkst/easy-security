@@ -1,4 +1,4 @@
-package org.easySecurity.core.user;
+package org.easySecutity.client.user;
 
 import org.easySecurity.core.authority.AuthorityEntity;
 import org.easySecurity.core.utils.AuthorityUtils;

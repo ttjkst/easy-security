@@ -1,4 +1,4 @@
-package org.easySecurity.core.user;
+package org.easySecurity.core.user.github;
 
 public class GithubUser implements java.io.Serializable {
     private static final long serialVersionUID = 7281148584651833497L;

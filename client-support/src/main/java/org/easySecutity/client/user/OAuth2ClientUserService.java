@@ -1,5 +1,6 @@
-package org.easySecurity.core.user;
+package org.easySecutity.client.user;
 
+import org.easySecurity.core.user.UserInfoEnity;
 import org.easySecurity.core.utils.AuthorityUtils;
 import org.springframework.http.*;
 import org.springframework.security.oauth2.client.userinfo.OAuth2UserRequest;

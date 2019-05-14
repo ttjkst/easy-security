@@ -1,10 +1,15 @@
 package org.easySecutity.client.dsl;
 
+import org.easySecurity.core.user.DelegatingOAuth2UserServicePlus;
 import org.easySecurity.core.voters.AddVotersToFilterSecurityInterceptorHelper;
-import org.easySecurity.core.voters.UserInfoWebExpresssionClientAuthorityVoter;
+import org.easySecutity.client.ClientConfigUtils;
+import org.easySecutity.client.voters.UserInfoWebExpresssionClientAuthorityVoter;
 import org.springframework.security.access.AccessDecisionVoter;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configurers.AbstractHttpConfigurer;
+import org.springframework.security.oauth2.client.userinfo.OAuth2UserRequest;
+import org.springframework.security.oauth2.client.userinfo.OAuth2UserService;
+import org.springframework.security.oauth2.core.user.OAuth2User;
 import org.springframework.security.web.FilterInvocation;
 
 import java.util.ArrayList;
@@ -14,12 +19,24 @@ public class ClientDsl extends AbstractHttpConfigurer<ClientDsl, HttpSecurity> {
 
     private List<AccessDecisionVoter<? extends Object>> webCilentVoters = new ArrayList<>(10);
 
+    private List<OAuth2UserService> oAuth2UserServices = new ArrayList<>(10);
+
     @Override
     public void init(HttpSecurity builder) throws Exception {
         if(webCilentVoters.isEmpty()){
             webCilentVoters.add(new UserInfoWebExpresssionClientAuthorityVoter());
         }
         builder.authorizeRequests().withObjectPostProcessor(new AddVotersToFilterSecurityInterceptorHelper(webCilentVoters));
+        OAuth2UserService oAuth2UserService = ClientConfigUtils.getOAuth2UserService(builder);
+        if(oAuth2UserService instanceof DelegatingOAuth2UserServicePlus){
+            ((DelegatingOAuth2UserServicePlus)oAuth2UserService).addALLOAuth2UserService(oAuth2UserServices);
+            builder.oauth2Login().userInfoEndpoint().userService(oAuth2UserService);
+        }else{
+            oAuth2UserServices.add(oAuth2UserService);
+            DelegatingOAuth2UserServicePlus<OAuth2UserRequest, OAuth2User> userServicePlus = new DelegatingOAuth2UserServicePlus<>();
+            userServicePlus.addALLOAuth2UserService(oAuth2UserServices);
+            builder.oauth2Login().userInfoEndpoint().userService(userServicePlus);
+        }
     }
 
     public ClientDsl voter(AccessDecisionVoter<FilterInvocation> voter){
@@ -44,6 +61,11 @@ public class ClientDsl extends AbstractHttpConfigurer<ClientDsl, HttpSecurity> {
         webCilentVoters.add(voter);
         determineDefalutVoterIfNoneAddIt();
         return this;
+    }
+
+    public ClientDsl userService(OAuth2UserService oAuth2UserService){
+
+        return  this;
     }
 
     private void determineDefalutVoterIfNoneAddIt(){
