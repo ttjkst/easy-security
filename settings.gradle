@@ -9,4 +9,5 @@
 
 rootProject.name = 'easy-security'
 include('core','oauth-authorization','client','client-support')
+include 'server-support'
 

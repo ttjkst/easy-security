@@ -9,8 +9,11 @@ import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configurers.AbstractHttpConfigurer;
 import org.springframework.security.oauth2.client.userinfo.OAuth2UserRequest;
 import org.springframework.security.oauth2.client.userinfo.OAuth2UserService;
+import org.springframework.security.oauth2.client.web.AuthorizationRequestRepository;
+import org.springframework.security.oauth2.core.endpoint.OAuth2AuthorizationRequest;
 import org.springframework.security.oauth2.core.user.OAuth2User;
 import org.springframework.security.web.FilterInvocation;
+import org.springframework.util.Assert;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -20,6 +23,8 @@ public class ClientDsl extends AbstractHttpConfigurer<ClientDsl, HttpSecurity> {
     private List<AccessDecisionVoter<? extends Object>> webCilentVoters = new ArrayList<>(10);
 
     private List<OAuth2UserService> oAuth2UserServices = new ArrayList<>(10);
+
+    private AuthorizationRequestRepository<OAuth2AuthorizationRequest> auth2AuthorizationRequestAuthorizationRequestRepository;
 
     @Override
     public void init(HttpSecurity builder) throws Exception {
@@ -64,7 +69,8 @@ public class ClientDsl extends AbstractHttpConfigurer<ClientDsl, HttpSecurity> {
     }
 
     public ClientDsl userService(OAuth2UserService oAuth2UserService){
-
+        Assert.notNull(oAuth2UserService,"load user service must not be null");
+        this.getBuilder().setSharedObject(OAuth2UserService.class,oAuth2UserService);
         return  this;
     }
 
@@ -75,5 +81,9 @@ public class ClientDsl extends AbstractHttpConfigurer<ClientDsl, HttpSecurity> {
             }
         }
         webCilentVoters.add(new UserInfoWebExpresssionClientAuthorityVoter());
+    }
+
+    public static ClientDsl bulid(){
+        return new ClientDsl();
     }
 }

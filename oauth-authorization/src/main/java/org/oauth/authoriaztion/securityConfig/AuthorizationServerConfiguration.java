@@ -97,6 +97,7 @@ public class AuthorizationServerConfiguration extends AuthorizationServerConfigu
                     ///至少要配置一个
                     .redirectUris("http://localhost:9093/client/oauth2/resource/get",
                             "http://localhost:9093/client/login/oauth2/code/login_test");
+
     }
 
     @Override
