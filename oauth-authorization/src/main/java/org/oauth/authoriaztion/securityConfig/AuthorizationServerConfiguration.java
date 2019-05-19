@@ -29,6 +29,7 @@ import org.springframework.security.oauth2.provider.approval.UserApprovalHandler
 import org.springframework.security.oauth2.provider.endpoint.FrameworkEndpoint;
 import org.springframework.security.oauth2.provider.request.DefaultOAuth2RequestFactory;
 import org.springframework.security.oauth2.provider.token.*;
+import org.springframework.security.oauth2.provider.token.store.InMemoryTokenStore;
 import org.springframework.security.oauth2.provider.token.store.JwtAccessTokenConverter;
 import org.springframework.security.oauth2.provider.token.store.JwtTokenStore;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -104,10 +105,9 @@ public class AuthorizationServerConfiguration extends AuthorizationServerConfigu
     public void configure(AuthorizationServerEndpointsConfigurer endpoints) throws Exception {
         endpoints.tokenStore(getTokenStore())
                 .authenticationManager(authenticationManager)
-                .userApprovalHandler(userApprovalHandler)
-                .accessTokenConverter(accessTokenConverter);
+                .userApprovalHandler(userApprovalHandler);
         TokenEnhancerChain tokenEnhancerChain = new TokenEnhancerChain();
-        tokenEnhancerChain.setTokenEnhancers(Arrays.asList(accessTokenConverter,tokenStoreUseTokenEnhancer));
+        tokenEnhancerChain.setTokenEnhancers(Arrays.asList(tokenStoreUseTokenEnhancer));
         endpoints.tokenEnhancer(tokenEnhancerChain);
 
     }
@@ -144,7 +144,7 @@ public class AuthorizationServerConfiguration extends AuthorizationServerConfigu
 
     @Bean
     public TokenStore getTokenStore() throws NoSuchAlgorithmException {
-        return new JwtTokenStore(accessTokenConverter);
+        return new InMemoryTokenStore();
     }
 
 

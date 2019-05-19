@@ -16,7 +16,12 @@
             },
             {"path":"/user/info","authority":"SCOPE_userInfo", "caseSensitive": "false"},
             {"path":"/*","authority":"ROLE_ANONYMOUS", "caseSensitive": "false"}
-        ]
+        ],
+        "extraInfo": {
+            "github": {
+                "id": ""
+            }
+        }
     },
     {
         "username": "tao",
@@ -35,6 +40,11 @@
             },
             {"path":"/user/info","authority":"SCOPE_userInfo", "caseSensitive": "false"},
             {"path":"/*","authority":"ROLE_ANONYMOUS", "caseSensitive": "false"}
-        ]
+        ],
+        "extraInfo": {
+            "Github": {
+                "id": "18386318"
+            }
+        }
     }
 ]

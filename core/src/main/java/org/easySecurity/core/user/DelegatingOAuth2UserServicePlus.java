@@ -13,7 +13,7 @@ import java.util.LinkedList;
 import java.util.List;
 
 
-public class DelegatingOAuth2UserServicePlus<R extends OAuth2UserRequest, U extends OAuth2User> implements OAuth2UserService<R, U> {
+public class DelegatingOAuth2UserServicePlus<R extends OAuth2UserRequest, U extends OAuth2User> implements OAuth2UserService<R, OAuth2User> {
 
     private final Log log = LogFactory.getLog(DelegatingOAuth2UserServicePlus.class);
     private LinkedList<OAuth2UserService> services = new LinkedList<>();
@@ -31,7 +31,7 @@ public class DelegatingOAuth2UserServicePlus<R extends OAuth2UserRequest, U exte
     }
 
     @Override
-    public U loadUser(R userRequest) throws OAuth2AuthenticationException {
+    public OAuth2User loadUser(R userRequest) throws OAuth2AuthenticationException {
         List<OAuth2AuthenticationException> exceptions = new ArrayList<>(services.size());
         for (OAuth2UserService service : services) {
             try {
@@ -39,6 +39,7 @@ public class DelegatingOAuth2UserServicePlus<R extends OAuth2UserRequest, U exte
                 if(oAuth2User==null){
                     continue;
                 }
+                return oAuth2User;
             }catch (Exception e){
                 if(log.isDebugEnabled()){
                     log.error("load user from service error, this load class is "+service.getClass(),e);

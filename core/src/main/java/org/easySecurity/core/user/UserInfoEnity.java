@@ -4,6 +4,7 @@ import org.easySecurity.core.authority.AuthorityEntity;
 
 import java.io.Serializable;
 import java.util.Collections;
+import java.util.Map;
 import java.util.Set;
 
 
@@ -17,6 +18,16 @@ public class UserInfoEnity implements Serializable {
     private  Boolean credentialsNonExpired;
     private  Boolean enabled;
     private  Set<AuthorityEntity> authorityEntities;
+
+    private Map<String,Object> extraInfo;
+
+    public Map<String, Object> getExtraInfo() {
+        return extraInfo;
+    }
+
+    public void setExtraInfo(Map<String, Object> extraInfo) {
+        this.extraInfo = extraInfo;
+    }
 
     public String getPassword() {
         return password;

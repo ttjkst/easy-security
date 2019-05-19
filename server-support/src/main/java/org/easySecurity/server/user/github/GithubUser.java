@@ -1,6 +1,10 @@
-package org.easySecurity.core.user.github;
+package org.easySecurity.server.user.github;
 
-public class GithubUser implements java.io.Serializable {
+import org.easySecurity.server.user.UniqueAccessor;
+
+import java.io.Serializable;
+
+public class GithubUser implements Serializable, UniqueAccessor {
     private static final long serialVersionUID = 7281148584651833497L;
     private String gists_url;
     private String repos_url;
@@ -343,5 +347,15 @@ public class GithubUser implements java.io.Serializable {
 
     public void setNode_id(String node_id) {
         this.node_id = node_id;
+    }
+
+    @Override
+    public String uniqueId() {
+        return id+"";
+    }
+
+    @Override
+    public String type() {
+        return "Github";
     }
 }

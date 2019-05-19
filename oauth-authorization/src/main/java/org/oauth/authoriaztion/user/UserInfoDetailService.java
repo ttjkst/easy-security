@@ -7,6 +7,8 @@ import org.apache.commons.logging.LogFactory;
 import org.easySecurity.core.authority.AuthorityEntity;
 import org.easySecurity.core.user.UserInfo;
 import org.easySecurity.core.user.UserInfoEnity;
+import org.easySecurity.server.user.UniqueAccessor;
+import org.easySecurity.server.user.UniqueProvider;
 import org.springframework.core.io.ClassPathResource;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
@@ -19,7 +21,7 @@ import java.io.IOException;
 import java.util.*;
 import java.util.stream.Collectors;
 
-public class UserInfoDetailService implements UserDetailsService {
+public class UserInfoDetailService implements UserDetailsService , UniqueProvider {
 
 
     private static List<UserInfo> userInfos;
@@ -64,7 +66,20 @@ public class UserInfoDetailService implements UserDetailsService {
                 .collect( Collectors.toSet());
         //due to spring default password encoder will be configured,use default password encoder --bcrypt
         String encodePassword = PasswordEncoderFactories.createDelegatingPasswordEncoder().encode(enity.getPassword());
-        return new UserInfo(enity.getUsername(),encodePassword,simpleGrantedAuthorities,entities);
+        return new UserInfo(enity.getUsername(),encodePassword,simpleGrantedAuthorities,entities,enity.getExtraInfo());
     }
 
+    @Override
+    public UserInfo extractUseDetails(UniqueAccessor accessor) {
+
+        for (UserInfo userInfo : userInfos) {
+            if(userInfo.getExtraInfo().containsKey(accessor.type())) {
+                Map map = (Map) userInfo.getExtraInfo().get(accessor.type());
+                if(accessor.uniqueId().equals(map.get("id").toString())) {
+                    return userInfo;
+                }
+            }
+        }
+        return null;
+    }
 }

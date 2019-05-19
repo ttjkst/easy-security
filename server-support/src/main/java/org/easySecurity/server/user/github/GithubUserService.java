@@ -1,9 +1,12 @@
-package org.easySecurity.core.user;
+package org.easySecurity.server.user.github;
 
-import org.easySecurity.core.user.github.GithubUser;
+import org.easySecurity.core.user.UserInfo;
+import org.easySecurity.server.user.OAuth2ServerUserService;
+import org.easySecurity.server.user.OAuth2UserWithMultOAuth2Info;
+import org.easySecurity.server.user.UniqueProvider;
 import org.springframework.http.*;
+import org.springframework.security.oauth2.client.registration.ClientRegistration;
 import org.springframework.security.oauth2.client.userinfo.OAuth2UserRequest;
-import org.springframework.security.oauth2.client.userinfo.OAuth2UserService;
 import org.springframework.security.oauth2.core.OAuth2AuthenticationException;
 import org.springframework.security.oauth2.core.user.OAuth2User;
 import org.springframework.web.client.RestTemplate;
@@ -15,13 +18,12 @@ import java.util.HashMap;
 import java.util.Map;
 import java.util.function.Function;
 
-public class OAuth2GithubUserService implements OAuth2UserService<OAuth2UserRequest, OAuth2User> {
+public class GithubUserService implements OAuth2ServerUserService<OAuth2UserRequest, OAuth2User> {
 
-    private Function<String,UserInfo> userInfoExtractor;
+    private UniqueProvider uniqueProvider;
 
-
-    public OAuth2GithubUserService(Function<String, UserInfo> userInfoExtractor) {
-        this.userInfoExtractor = userInfoExtractor;
+    public GithubUserService(UniqueProvider uniqueProvider) {
+        this.uniqueProvider = uniqueProvider;
     }
 
     @Override
@@ -36,12 +38,12 @@ public class OAuth2GithubUserService implements OAuth2UserService<OAuth2UserRequ
                     .build()
                     .toUri();
             RequestEntity<?> requestEntity         = new RequestEntity<>(headers, HttpMethod.GET, uri);
-            ResponseEntity<GithubUser> exchange = restTemplate.exchange(requestEntity, GithubUser.class);
-            GithubUser githubUser            = exchange.getBody();
+            ResponseEntity<GithubUser> exchange    = restTemplate.exchange(requestEntity, GithubUser.class);
+            GithubUser githubUser                  = exchange.getBody();
             if(githubUser==null){
                 return  null;
             }
-            UserInfo userInfo = userInfoExtractor.apply(githubUser.getName());
+            UserInfo userInfo = uniqueProvider.extractUseDetails(githubUser);
             Map<String,Object> extra = new HashMap<>(2);
             extra.put(OAuth2UserWithMultOAuth2Info.GITHUB_USER,githubUser);
             extra.put(OAuth2UserWithMultOAuth2Info.GITHUB_USER_ACCESS_CODE,userRequest.getAccessToken());
@@ -49,5 +51,10 @@ public class OAuth2GithubUserService implements OAuth2UserService<OAuth2UserRequ
         }catch (Exception e){
             throw new RuntimeException("can not load userInfo for authoriaztion server",e);
         }
+    }
+
+    @Override
+    public boolean support(ClientRegistration clientRegistration) {
+        return "GitHub".equals(clientRegistration.getClientName());
     }
 }
