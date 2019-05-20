@@ -23,7 +23,7 @@ server:
 logging:
   config: classpath:logback-spring.xml
   level:
-    root: info
+    root: debug
     web: debug
     org:
       apache: error

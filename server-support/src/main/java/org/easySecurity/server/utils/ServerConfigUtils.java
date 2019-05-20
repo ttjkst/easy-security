@@ -19,8 +19,12 @@ public abstract class ServerConfigUtils {
     }
 
     public static <T> T getBeanInApplicationContext(HttpSecurity builder, Class<T> clazz){
-        ApplicationContext applicationContext = builder.getSharedObject(ApplicationContext.class);
+        ApplicationContext applicationContext = getApplicationContext(builder);
         ObjectProvider<T> beanProvider = applicationContext.getBeanProvider(clazz);
         return beanProvider.getIfAvailable(()->null);
+    }
+
+    public static ApplicationContext getApplicationContext(HttpSecurity builder){
+       return builder.getSharedObject(ApplicationContext.class);
     }
 }

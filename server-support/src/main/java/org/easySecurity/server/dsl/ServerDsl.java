@@ -10,18 +10,31 @@ import org.easySecurity.server.user.OAuth2ServerUserService;
 import org.easySecurity.server.user.UniqueProvider;
 import org.easySecurity.server.user.github.GithubUserService;
 import org.easySecurity.server.utils.ServerConfigUtils;
+import org.springframework.context.ApplicationContext;
 import org.springframework.security.access.AccessDecisionVoter;
 import org.springframework.security.authentication.AuthenticationManager;
+import org.springframework.security.config.annotation.web.HttpSecurityBuilder;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configurers.AbstractHttpConfigurer;
+import org.springframework.security.config.annotation.web.configurers.oauth2.server.resource.OAuth2ResourceServerConfigurer;
 import org.springframework.security.oauth2.client.registration.ClientRegistration;
 import org.springframework.security.oauth2.client.registration.ClientRegistrationRepository;
+import org.springframework.security.oauth2.core.OAuth2AuthenticationException;
 import org.springframework.security.oauth2.provider.OAuth2RequestFactory;
 import org.springframework.security.oauth2.provider.endpoint.TokenEndpointAuthenticationFilter;
+import org.springframework.security.oauth2.server.resource.web.BearerTokenAuthenticationEntryPoint;
+import org.springframework.security.oauth2.server.resource.web.BearerTokenAuthenticationFilter;
+import org.springframework.security.oauth2.server.resource.web.BearerTokenResolver;
+import org.springframework.security.oauth2.server.resource.web.DefaultBearerTokenResolver;
+import org.springframework.security.oauth2.server.resource.web.access.BearerTokenAccessDeniedHandler;
+import org.springframework.security.web.AuthenticationEntryPoint;
 import org.springframework.security.web.FilterInvocation;
+import org.springframework.security.web.access.AccessDeniedHandler;
 import org.springframework.security.web.authentication.www.BasicAuthenticationFilter;
+import org.springframework.security.web.util.matcher.RequestMatcher;
 import org.springframework.util.Assert;
 
+import javax.servlet.http.HttpServletRequest;
 import java.util.ArrayList;
 import java.util.LinkedList;
 import java.util.List;
@@ -32,8 +45,11 @@ public class ServerDsl extends AbstractHttpConfigurer<ServerDsl, HttpSecurity> {
 
     private static final Log log = LogFactory.getLog(ServerDsl.class);
 
-    private Function<String, UserInfo> userInfoExtractor;
 
+    private AccessDeniedHandler bearerTokenAccessDeniedHandler = new BearerTokenAccessDeniedHandler();
+    private AuthenticationEntryPoint authenticationEntryPoint  = new BearerTokenAuthenticationEntryPoint();
+    private BearerTokenRequestMatcher requestMatcher           = new BearerTokenRequestMatcher();
+    private BearerTokenResolver bearerTokenResolver;
     private List<AccessDecisionVoter<? extends Object>> severVoters = new ArrayList<>(10);
 
     private LinkedList<OAuth2ServerUserService> serverUserServices = new LinkedList();
@@ -42,6 +58,20 @@ public class ServerDsl extends AbstractHttpConfigurer<ServerDsl, HttpSecurity> {
 
     @Override
     public void init(HttpSecurity builder) throws Exception {
+
+        BearerTokenResolver bearerTokenResolver = getBearerTokenResolver(builder);
+        this.requestMatcher.setBearerTokenResolver(bearerTokenResolver);
+
+        AuthenticationManager manager = ServerConfigUtils.getBean(builder,AuthenticationManager.class);
+
+        BearerTokenAuthenticationFilter filter =
+                new BearerTokenAuthenticationFilter(manager);
+        filter.setBearerTokenResolver(bearerTokenResolver);
+        filter.setAuthenticationEntryPoint(this.authenticationEntryPoint);
+        filter = postProcess(filter);
+
+        builder.addFilter(filter);
+
         if(enableRoleToScope){
             setTokenEndpointAuthenticationFilter(builder);
         }
@@ -140,5 +170,37 @@ public class ServerDsl extends AbstractHttpConfigurer<ServerDsl, HttpSecurity> {
         Assert.notNull(bean,"can not find OAuth2RequestFactory bean");
         TokenEndpointAuthenticationFilter filter = new TokenEndpointAuthenticationFilter(manager,bean);
         return filter;
+    }
+
+    BearerTokenResolver getBearerTokenResolver(HttpSecurity builder) {
+        if ( this.bearerTokenResolver == null ) {
+            ApplicationContext applicationContext = ServerConfigUtils.getApplicationContext(builder);
+            if ( applicationContext.getBeanNamesForType(BearerTokenResolver.class).length > 0 ) {
+                this.bearerTokenResolver = applicationContext.getBean(BearerTokenResolver.class);
+            } else {
+                this.bearerTokenResolver = new DefaultBearerTokenResolver();
+            }
+        }
+
+        return this.bearerTokenResolver;
+    }
+
+
+    private static final class BearerTokenRequestMatcher implements RequestMatcher {
+        private BearerTokenResolver bearerTokenResolver;
+
+        @Override
+        public boolean matches(HttpServletRequest request) {
+            try {
+                return this.bearerTokenResolver.resolve(request) != null;
+            } catch ( OAuth2AuthenticationException e ) {
+                return false;
+            }
+        }
+
+        public void setBearerTokenResolver(BearerTokenResolver tokenResolver) {
+            Assert.notNull(tokenResolver, "resolver cannot be null");
+            this.bearerTokenResolver = tokenResolver;
+        }
     }
 }
