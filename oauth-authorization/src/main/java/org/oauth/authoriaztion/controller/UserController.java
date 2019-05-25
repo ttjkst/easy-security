@@ -12,6 +12,7 @@ import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;
+import org.springframework.security.oauth2.provider.OAuth2Authentication;
 import org.springframework.security.oauth2.server.resource.BearerTokenAuthenticationToken;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
@@ -40,17 +41,24 @@ public class UserController {
     @PreAuthorize("hasAuthorty('SCOPE_userInfo')")
     public UserInfoEnity queryUserInfoByName(){
         Map<String,Object> map = new HashMap<>(1);
+        UserDetails userDetails;
         Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
         if(authentication instanceof BearerTokenAuthenticationToken){
             BearerTokenAuthenticationToken auth2Token = (BearerTokenAuthenticationToken) authentication;
             try {
-                UserDetails userDetails = tokenStoreUseTokenEnhancer.getStoreAuthentication(auth2Token.getToken());
-                return extractOtherUserInfo((UserInfo)userDetails);
+                userDetails = tokenStoreUseTokenEnhancer.getStoreAuthentication(auth2Token.getToken());
             } catch (Exception e) {
                 logger.error("get userInfo error",e);
+                throw new UnsupportedOperationException("unable to load useinfo ",e);
             }
+        }else if(authentication instanceof OAuth2Authentication){
+            OAuth2Authentication auth2Token = (OAuth2Authentication) authentication;
+            userDetails = (UserDetails) auth2Token.getUserAuthentication().getPrincipal();
+        }else {
+            throw new UnsupportedOperationException("unable to load useinfo");
         }
-        throw  new UnsupportedOperationException("load detail is not org.oauth.authoriaztion.user.UserInfo.class");
+        UserInfoEnity userInfoEnity = extractOtherUserInfo((UserInfo) userDetails);
+        return userInfoEnity;
     }
 
     private UserInfoEnity extractOtherUserInfo(UserInfo userInfo) {

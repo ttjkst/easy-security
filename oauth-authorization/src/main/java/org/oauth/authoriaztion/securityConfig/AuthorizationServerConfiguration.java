@@ -89,7 +89,7 @@ public class AuthorizationServerConfiguration extends AuthorizationServerConfigu
                         .redirectUris("http://localhost:9093/client/oauth2/resource/get")
                 .and()
                     .withClient("my-login-client")
-                    .resourceIds("asasas-1")
+                    .resourceIds("oauth2-resource")
                     .authorizedGrantTypes("authorization_code")
                     .authorities("OAUTH2_CLIENT")
                     .scopes("read","user")
