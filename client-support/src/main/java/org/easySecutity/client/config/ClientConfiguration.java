@@ -14,6 +14,11 @@ import org.springframework.context.annotation.Configuration;
 public class ClientConfiguration {
 
 
+    private final ClientProperties clientProperties;
+
+    public ClientConfiguration(ClientProperties clientProperties) {
+        this.clientProperties = clientProperties;
+    }
 
     @Bean
     public ChangeUseInfoExecutor changeUseInfoExecutor(){

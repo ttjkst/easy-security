@@ -1,0 +1,17 @@
+# Initializers
+
+
+# Application Listeners
+
+# Auto Configuration Import Listeners
+
+# Auto Configuration Import Filters
+
+# Auto Configure
+org.easySecutity.client.config.EasySecurityClientAutoConfiguration=
+
+# Failure analyzers
+
+
+# Template availability providers
+

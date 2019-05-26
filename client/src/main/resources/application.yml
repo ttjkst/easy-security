@@ -31,4 +31,8 @@ myuserInfo: http://127.0.0.1:9091/authorizan/user/info/detail
 logging:
   config: classpath:logback-spring.xml
   level:
-    root: debug
+    root: info
+easySpring:
+  oauth2:
+    client:
+      disableListeningServerUseInfoChange: false
