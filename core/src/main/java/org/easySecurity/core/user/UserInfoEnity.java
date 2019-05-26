@@ -19,6 +19,9 @@ public class UserInfoEnity implements Serializable {
     private  Boolean enabled;
     private  Set<AuthorityEntity> authorityEntities;
 
+    private Map<String,Set<AuthorityEntity>> authorityEntitieMaps;
+
+
     private Map<String,Object> extraInfo;
 
     public Map<String, Object> getExtraInfo() {

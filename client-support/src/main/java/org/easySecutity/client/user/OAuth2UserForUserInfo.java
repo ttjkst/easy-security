@@ -19,14 +19,17 @@ public class OAuth2UserForUserInfo implements OAuth2User {
 
     private final String name;
 
+    private final String uniqueId;
 
-    public OAuth2UserForUserInfo(Collection<? extends GrantedAuthority> authorities, String name, Set<AuthorityEntity> authorityInfos) {
+
+    public OAuth2UserForUserInfo(Collection<? extends GrantedAuthority> authorities, String name, Set<AuthorityEntity> authorityInfos,String uniqueId) {
         this.authorities= authorities;
         this.name       = name;
         belongToRequestMap = new LinkedHashMap<>(authorityInfos.size());
         authorityInfos.forEach(authorityEntity -> belongToRequestMap.put(
                 AuthorityUtils.mapToMatcher(authorityEntity,null)
                 ,authorityEntity));
+        this.uniqueId = uniqueId;
     }
 
     @Override
@@ -44,6 +47,9 @@ public class OAuth2UserForUserInfo implements OAuth2User {
         return name;
     }
 
+    public String getUniqueId() {
+        return uniqueId;
+    }
 
     public LinkedHashMap<AntPathRequestMatcher, AuthorityEntity> getBelongToRequestMap() {
         return belongToRequestMap;

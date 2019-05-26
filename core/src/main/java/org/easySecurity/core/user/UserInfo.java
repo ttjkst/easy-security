@@ -37,7 +37,7 @@ public class UserInfo implements UserDetails {
         }
         if (authorities==null) {
             throw new IllegalArgumentException(
-                    "Cannot pass null  authorityInfos to constructor");
+                    "Cannot pass null  authorities to constructor");
         }
         this.password = password;
         this.username = username;

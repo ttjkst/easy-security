@@ -1,12 +1,13 @@
 package org.easySecutity.client;
 
+import org.easySecurity.core.utils.SecurityUtils;
 import org.easySecutity.client.user.OAuth2ClientUserService;
 import org.springframework.beans.factory.ObjectProvider;
 import org.springframework.context.ApplicationContext;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.oauth2.client.userinfo.OAuth2UserService;
 
-public abstract class ClientConfigUtils {
+public abstract class ClientConfigUtils extends SecurityUtils {
     public static OAuth2UserService  getOAuth2UserService(HttpSecurity builder){
         OAuth2UserService sharedObject = builder.getSharedObject(OAuth2UserService.class);
         if(sharedObject==null){

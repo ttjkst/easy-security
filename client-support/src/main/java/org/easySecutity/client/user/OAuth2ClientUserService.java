@@ -30,7 +30,7 @@ public class OAuth2ClientUserService implements OAuth2UserService<OAuth2UserRequ
             RequestEntity<?> requestEntity         = new RequestEntity<>(headers, HttpMethod.GET, uri);
             ResponseEntity<UserInfoEnity> exchange = restTemplate.exchange(requestEntity, UserInfoEnity.class);
             UserInfoEnity userInfoEnity            = exchange.getBody();
-            return new OAuth2UserForUserInfo(AuthorityUtils.packGrantedAuthoritys(userInfoEnity.getAuthorities()),userInfoEnity.getUsername(),userInfoEnity.getAuthorityEntities());
+            return new OAuth2UserForUserInfo(AuthorityUtils.packGrantedAuthoritys(userInfoEnity.getAuthorities()),userInfoEnity.getUsername(),userInfoEnity.getAuthorityEntities(),userRequest.getAccessToken().getTokenValue());
         }catch (Exception e){
             throw new RuntimeException("can not load userInfo for authoriaztion server",e);
         }
