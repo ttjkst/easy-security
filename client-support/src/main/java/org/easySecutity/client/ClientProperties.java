@@ -2,7 +2,7 @@ package org.easySecutity.client;
 
 import org.springframework.boot.context.properties.ConfigurationProperties;
 
-@ConfigurationProperties(prefix = "easySpring.oauth2.client")
+@ConfigurationProperties(prefix = "easy-security.oauth2.client")
 public class ClientProperties {
 
     private boolean disableListeningServerUseInfoChange = false;

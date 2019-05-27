@@ -32,7 +32,7 @@ logging:
   config: classpath:logback-spring.xml
   level:
     root: info
-easySpring:
+easy-security:
   oauth2:
     client:
       disableListeningServerUseInfoChange: false

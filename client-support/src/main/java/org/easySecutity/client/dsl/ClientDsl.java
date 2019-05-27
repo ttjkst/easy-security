@@ -30,7 +30,7 @@ public class ClientDsl extends AbstractHttpConfigurer<ClientDsl, HttpSecurity> {
 
     private List<AccessDecisionVoter<? extends Object>> webCilentVoters = new ArrayList<>(10);
 
-    private List<OAuth2UserService> oAuth2UserServices = new ArrayList<>(10);
+    private List<OAuth2UserService> oAuth2UserServices                  = new ArrayList<>(10);
 
     private List<SecurityContextRepositoryListener> repositoryListeners;
 
@@ -52,7 +52,7 @@ public class ClientDsl extends AbstractHttpConfigurer<ClientDsl, HttpSecurity> {
             builder.oauth2Login().userInfoEndpoint().userService(userServicePlus);
         }
         ClientProperties clientProperties         = ClientConfigUtils.getBean(builder, ClientProperties.class);
-        if(!clientProperties.isDisableListeningServerUseInfoChange()){
+        if(!clientProperties.isDisableListeningServerUseInfoChange()&&clientProperties!=null){
             ChangeUseInfoExecutor useInfoExecutor = ClientConfigUtils.getBean(builder, ChangeUseInfoExecutor.class);
             if(repositoryListeners==null){
                 repositoryListeners = Arrays.asList(useInfoExecutor);
@@ -109,18 +109,27 @@ public class ClientDsl extends AbstractHttpConfigurer<ClientDsl, HttpSecurity> {
         webCilentVoters.add(new UserInfoWebExpresssionClientAuthorityVoter());
     }
 
+    /**
+     * developing in the future may be delete
+     * */
     public ClientDsl homePage(String homePage){
         return this;
     }
-
+    /**
+     * developing in the future may be delete
+     * */
     public ClientDsl homePage(String homePage,boolean alwaysUse){
         return this;
     }
-
+    /**
+     * developing in the future may be delete
+     * */
     public ClientDsl successHandler(){
         return this;
     }
-
+    /**
+     * developing in the future may be delete
+     * */
     public static ClientDsl bulid(){
         return new ClientDsl();
     }

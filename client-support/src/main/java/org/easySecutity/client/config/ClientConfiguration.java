@@ -26,7 +26,7 @@ public class ClientConfiguration {
     }
 
     @Bean
-    @ConditionalOnProperty(prefix = "easySpring.oauth2.client",name = "disableListeningServerUseInfoChange", havingValue = "false", matchIfMissing = true)
+    @ConditionalOnProperty(prefix = "easy-security.oauth2.client",name = "disableListeningServerUseInfoChange", havingValue = "false", matchIfMissing = true)
     public UserInfoEndpoint UserInfoEndpoint(){
         UserInfoEndpoint userInfoEndpoint = new UserInfoEndpoint();
         userInfoEndpoint.setExecutor(changeUseInfoExecutor());

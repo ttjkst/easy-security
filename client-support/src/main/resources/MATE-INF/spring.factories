@@ -8,7 +8,8 @@
 # Auto Configuration Import Filters
 
 # Auto Configure
-org.easySecutity.client.config.EasySecurityClientAutoConfiguration=
+org.springframework.boot.autoconfigure.EnableAutoConfiguration=\
+org.easySecutity.client.config.EasySecurityClientAutoConfiguration,
 
 # Failure analyzers
 
