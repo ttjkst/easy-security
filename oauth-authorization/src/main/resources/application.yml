@@ -38,3 +38,10 @@ logging:
         web:
           servlet: trace
 
+easy-security:
+  oauth2:
+    server:
+      clientInfo:
+        my-login-client:
+          changeUseInfoUrl: http://ssss.com
+          sendToClientAuthenticationType: useClientCredential

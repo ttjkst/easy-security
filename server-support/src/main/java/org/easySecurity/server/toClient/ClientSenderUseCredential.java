@@ -1,6 +1,6 @@
 package org.easySecurity.server.toClient;
 
-import org.easySecurity.core.user.UserInfo;
+import org.easySecurity.server.user.OAuth2UserWithMultOAuth2Info;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.MediaType;
 import org.springframework.web.client.RestTemplate;
@@ -16,7 +16,7 @@ public class ClientSenderUseCredential implements ClientSender{
         this.accessCode = accessCode;
     }
     @Override
-    public void sendChangeUseInfoToClient(UserInfo info,String ...urls) {
+    public void sendChangeUseInfoToClient(OAuth2UserWithMultOAuth2Info userInfo) {
         RestTemplate restTemplate = new RestTemplate();
         HttpHeaders headers       = new HttpHeaders();
         headers.setBearerAuth(accessCode);
