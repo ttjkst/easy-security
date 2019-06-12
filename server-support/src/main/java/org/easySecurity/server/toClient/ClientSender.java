@@ -8,5 +8,5 @@ import org.easySecurity.server.user.OAuth2UserWithMultOAuth2Info;
  * */
 public interface ClientSender {
 
-    void sendChangeUseInfoToClient(OAuth2UserWithMultOAuth2Info info);
+    void sendChangeUserInfoToClient(OAuth2UserWithMultOAuth2Info info);
 }

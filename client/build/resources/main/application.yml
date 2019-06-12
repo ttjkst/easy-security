@@ -1,0 +1,38 @@
+spring:
+  mvc:
+    view:
+      prefix: /WEB-INF/
+      suffix: .jsp
+  security:
+    oauth2:
+      client:
+        registration:
+          login_test:
+            client-id: my-login-client
+            client-secret: login_secret
+            provider: oauth-provider
+            authorization-grant-type: authorization_code
+            client-authentication-method: basic
+            redirect-uri-template: http://localhost:9093/client/login/oauth2/code/login_test
+        provider:
+          oauth-provider:
+            authorization-uri: http://127.0.0.1:9091/authorizan/oauth/authorize
+            token-uri: http://127.0.0.1:9091/authorizan/oauth/token
+            user-info-uri: http://127.0.0.1:9091/authorizan/user/info/detail
+            user-info-authentication-method: header
+server:
+  servlet:
+    context-path: /client
+  port: 9093
+userAuthorizationUri: http://127.0.0.1:9091/authorizan/oauth/authorize
+accessTokenUri: http://127.0.0.1:9091/authorizan/oauth/token
+  ## 获取用户详细信息的方法
+myuserInfo: http://127.0.0.1:9091/authorizan/user/info/detail
+logging:
+  config: classpath:logback-spring.xml
+  level:
+    root: info
+easy-security:
+  oauth2:
+    client:
+      disableListeningServerUseInfoChange: false

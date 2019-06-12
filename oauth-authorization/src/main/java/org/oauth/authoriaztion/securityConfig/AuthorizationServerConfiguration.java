@@ -79,6 +79,8 @@ public class AuthorizationServerConfiguration extends AuthorizationServerConfigu
 
     @Override
     public void configure(ClientDetailsServiceConfigurer clients) throws Exception {
+
+
         clients.inMemory()
                     .withClient("demo-client")
                         .resourceIds("demo-test-resource")
@@ -87,6 +89,7 @@ public class AuthorizationServerConfiguration extends AuthorizationServerConfigu
                         .scopes("read","write")
                         .secret("secret")
                         .redirectUris("http://localhost:9093/client/oauth2/resource/get")
+                        .additionalInformation("changeUrl:https://localhost:/client/user/info/update")
                 .and()
                     .withClient("my-login-client")
                     .resourceIds("oauth2-resource")
@@ -96,7 +99,10 @@ public class AuthorizationServerConfiguration extends AuthorizationServerConfigu
                     .secret("login_secret")
                     ///至少要配置一个
                     .redirectUris("http://localhost:9093/client/oauth2/resource/get",
-                            "http://localhost:9093/client/login/oauth2/code/login_test");
+                            "http://localhost:9093/client/login/oauth2/code/login_test")
+                    .additionalInformation("changeUrl:https://localhost:/client/user/info/update")
+                .and()
+                .build();
 
     }
 

@@ -1,6 +1,5 @@
 package org.easySecutity.client.config;
 
-import org.easySecurity.core.user.UserInfoEnity;
 import org.easySecutity.client.ClientProperties;
 import org.easySecutity.client.endpints.UserInfoEndpoint;
 import org.easySecutity.client.securityContext.ChangeUseInfoExecutor;

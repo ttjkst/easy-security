@@ -1,0 +1,17 @@
+spring:
+  mvc:
+    view:
+      prefix: /WEB-INF/
+      suffix: .jsp
+server:
+  servlet:
+    context-path: client
+  port: 9093
+userAuthorizationUri: http://127.0.0.1:9091/authorizan/oauth/authorize
+accessTokenUri: http://127.0.0.1:9091/authorizan/oauth/token
+  ## 获取用户详细信息的方法
+myuserInfo : http://127.0.0.1:9091/authorizan/user/info/detail
+logging:
+  config: classpath:logback-spring.xml
+  level:
+    root: debug

@@ -1,6 +1,6 @@
 package org.easySecutity.client.securityContext;
 
-import org.easySecurity.core.user.ClientUserInfoEnity;
+import org.easySecurity.core.user.ClientUserInfoEntity;
 import org.easySecurity.core.utils.AuthorityUtils;
 import org.easySecutity.client.user.OAuth2UserForUserInfo;
 import org.springframework.security.core.Authentication;
@@ -20,7 +20,7 @@ import java.util.stream.Collectors;
 
 public class ChangeUseInfoExecutor extends SecurityContextRepositoryListenerAdpter {
 
-    private ConcurrentHashMap<String, ClientUserInfoEnity> waitMap = new ConcurrentHashMap<>(15);
+    private ConcurrentHashMap<String, ClientUserInfoEntity> waitMap = new ConcurrentHashMap<>(15);
 
     @Override
     public void afterLoadContext(SecurityContext context) {
@@ -30,16 +30,17 @@ public class ChangeUseInfoExecutor extends SecurityContextRepositoryListenerAdpt
                 OAuth2UserForUserInfo userForUserInfo = (OAuth2UserForUserInfo) authentication.getPrincipal();
                 String uniqueId                       = userForUserInfo.getUniqueId();
                 if (waitMap.containsKey(userForUserInfo.getUniqueId())) {
-                    ClientUserInfoEnity clientUserInfoEnity   = waitMap.get(uniqueId);
+                    ClientUserInfoEntity clientUserInfoEntity = waitMap.get(uniqueId);
                     OAuth2LoginAuthenticationToken olderToken = (OAuth2LoginAuthenticationToken) authentication;
-                    OAuth2LoginAuthenticationToken newToken   = switchToNewToken(olderToken, clientUserInfoEnity);
+                    OAuth2LoginAuthenticationToken newToken   = switchToNewToken(olderToken, clientUserInfoEntity);
                     context.setAuthentication(newToken);
+                    waitMap.remove(userForUserInfo.getUniqueId());
                 }
         }
     }
 
 
-    private OAuth2LoginAuthenticationToken switchToNewToken(OAuth2LoginAuthenticationToken olderToken,ClientUserInfoEnity newUserInfo){
+    private OAuth2LoginAuthenticationToken switchToNewToken(OAuth2LoginAuthenticationToken olderToken, ClientUserInfoEntity newUserInfo){
         ClientRegistration clientRegistration             = olderToken.getClientRegistration();
         OAuth2AuthorizationExchange authorizationExchange = olderToken.getAuthorizationExchange();
         OAuth2AccessToken accessToken                     = olderToken.getAccessToken();
@@ -61,12 +62,12 @@ public class ChangeUseInfoExecutor extends SecurityContextRepositoryListenerAdpt
         return newToken;
     }
 
-    public void addChangeToWaitMap(ClientUserInfoEnity clientUserInfoEnity){
-        waitMap.put(clientUserInfoEnity.getTokenValue(),clientUserInfoEnity);
+    public void addChangeToWaitMap(ClientUserInfoEntity clientUserInfoEntity){
+        waitMap.put(clientUserInfoEntity.getTokenValue(), clientUserInfoEntity);
     }
 
-    public void addChangeToWaitMap(List<ClientUserInfoEnity> clientUserInfoEnitys){
-        Map<String, ClientUserInfoEnity> addToWaitMap = clientUserInfoEnitys.stream()
+    public void addChangeToWaitMap(List<ClientUserInfoEntity> clientUserInfoEntities){
+        Map<String, ClientUserInfoEntity> addToWaitMap = clientUserInfoEntities.stream()
                 .collect(Collectors.toMap(k -> k.getTokenValue(), Function.identity()));
         waitMap.putAll(addToWaitMap);
     }

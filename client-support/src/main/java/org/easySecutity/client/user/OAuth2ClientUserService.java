@@ -1,6 +1,6 @@
 package org.easySecutity.client.user;
 
-import org.easySecurity.core.user.UserInfoEnity;
+import org.easySecurity.core.user.UserInfoEntity;
 import org.easySecurity.core.utils.AuthorityUtils;
 import org.springframework.http.*;
 import org.springframework.security.oauth2.client.userinfo.OAuth2UserRequest;
@@ -28,9 +28,9 @@ public class OAuth2ClientUserService implements OAuth2UserService<OAuth2UserRequ
                     .build()
                     .toUri();
             RequestEntity<?> requestEntity         = new RequestEntity<>(headers, HttpMethod.GET, uri);
-            ResponseEntity<UserInfoEnity> exchange = restTemplate.exchange(requestEntity, UserInfoEnity.class);
-            UserInfoEnity userInfoEnity            = exchange.getBody();
-            return new OAuth2UserForUserInfo(AuthorityUtils.packGrantedAuthoritys(userInfoEnity.getAuthorities()),userInfoEnity.getUsername(),userInfoEnity.getAuthorityEntities(),userRequest.getAccessToken().getTokenValue());
+            ResponseEntity<UserInfoEntity> exchange = restTemplate.exchange(requestEntity, UserInfoEntity.class);
+            UserInfoEntity userInfoEntity = exchange.getBody();
+            return new OAuth2UserForUserInfo(AuthorityUtils.packGrantedAuthoritys(userInfoEntity.getAuthorities()), userInfoEntity.getUsername(), userInfoEntity.getAuthorityEntities(),userRequest.getAccessToken().getTokenValue());
         }catch (Exception e){
             throw new RuntimeException("can not load userInfo for authoriaztion server",e);
         }

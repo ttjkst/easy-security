@@ -1,8 +1,7 @@
 package org.easySecutity.client.endpints;
 
-import org.easySecurity.core.user.ClientUserInfoEnity;
+import org.easySecurity.core.user.ClientUserInfoEntity;
 import org.easySecutity.client.securityContext.ChangeUseInfoExecutor;
-import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.oauth2.provider.endpoint.FrameworkEndpoint;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -17,7 +16,7 @@ public class UserInfoEndpoint {
 
     @RequestMapping("/user/info/update")
     @ResponseBody
-    public void updateUseInfo(@RequestBody List<ClientUserInfoEnity> userInfoEnities){
+    public void updateUseInfo(@RequestBody List<ClientUserInfoEntity> userInfoEnities){
         executor.addChangeToWaitMap(userInfoEnities);
     }
 

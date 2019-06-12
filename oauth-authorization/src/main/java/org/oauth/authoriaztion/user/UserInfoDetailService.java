@@ -6,7 +6,7 @@ import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 import org.easySecurity.core.authority.AuthorityEntity;
 import org.easySecurity.core.user.UserInfo;
-import org.easySecurity.core.user.UserInfoEnity;
+import org.easySecurity.core.user.UserInfoEntity;
 import org.easySecurity.server.user.UniqueAccessor;
 import org.easySecurity.server.user.UniqueProvider;
 import org.springframework.core.io.ClassPathResource;
@@ -39,8 +39,8 @@ public class UserInfoDetailService implements UserDetailsService , UniqueProvide
     public UserInfoDetailService() throws IOException {
 
         ClassPathResource fileRource = new ClassPathResource( path );
-        JavaType javaType = objectMapper.getTypeFactory().constructCollectionLikeType(List.class, UserInfoEnity.class);
-        Collection<UserInfoEnity> userInfoEnities = (Collection<UserInfoEnity>) objectMapper.readValue(fileRource.getFile(), javaType);
+        JavaType javaType = objectMapper.getTypeFactory().constructCollectionLikeType(List.class, UserInfoEntity.class);
+        Collection<UserInfoEntity> userInfoEnities = (Collection<UserInfoEntity>) objectMapper.readValue(fileRource.getFile(), javaType);
         userInfos =  userInfoEnities.stream().map( this::mapToUserInfo).collect( Collectors.toList());
 
     }
@@ -58,7 +58,7 @@ public class UserInfoDetailService implements UserDetailsService , UniqueProvide
         });
     }
 
-    private UserInfo mapToUserInfo(UserInfoEnity enity){
+    private UserInfo mapToUserInfo(UserInfoEntity enity){
         Set<AuthorityEntity> entities = enity.getAuthorityEntities();
         Set<SimpleGrantedAuthority> simpleGrantedAuthorities = enity.getAuthorities()
                 .stream()
