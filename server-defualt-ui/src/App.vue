@@ -1,4 +1,10 @@
 <template>
+<div>
+<UserModal v-bind:initShow="true" >
+  <template v-slot:title>
+    <h1>1111</h1>
+  </template>
+</UserModal>
   <div id="app" class="container-fluid">
       <div class="row">
     <ToolBar/>
@@ -7,17 +13,18 @@
     </main>
     </div>
   </div>
+</div>
 </template>
 
 <script>
 import HelloWorld from '@/components/ui/UserGrid.vue'
 import ToolBar from '@/components/ui/ToolBar.vue'
+import UserModal from '@/components/ui/UserModal.vue'
 
 export default {
   name: 'app',
   data:function(){
     return {
-
         datas:[
           {uid:1,username:"test",local:true},
           {uid:1,username:"test",local:true},
@@ -27,7 +34,7 @@ export default {
     }
   },
   components: {
-    HelloWorld,ToolBar
+    HelloWorld,ToolBar,UserModal
   }
 }
 </script>
