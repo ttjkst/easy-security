@@ -20,6 +20,7 @@
 import HelloWorld from '@/components/ui/UserGrid.vue'
 import ToolBar from '@/components/ui/ToolBar.vue'
 import UserModal from '@/components/ui/UserModal.vue'
+import store     from '@/components/store/store.js'
 
 export default {
   name: 'app',

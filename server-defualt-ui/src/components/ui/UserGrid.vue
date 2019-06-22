@@ -19,7 +19,7 @@
           </tr>
         </thead>
         <tbody>
-          <tr v-for="row in addNumTableDates" v-bind:key="row.num">
+          <tr v-for="row in userRows" v-bind:key="row.num">
             <th scope="row">{{row.num}}</th>
             <td>{{row.uid}}</td>
             <td>{{row.username}}</td>
@@ -59,6 +59,7 @@
   </div>
 </template>
 <script>
+import {mapState,mapActions} from 'vuex'
 export default {
   data: function() {
     return {
@@ -66,27 +67,16 @@ export default {
     };
   },
   props: ["pageSize", "tableDatas"],
-  computed: {
-    realPageSize: function() {
-      if (this.pageSize == null || this.pageSize <= 0) {
-        return 10;
-      }
-      return this.pageSize;
-    },
-    addNumTableDates: function() {
-      var result = [];
-      
-      var datas = this.tableDatas;
-      if (datas == null) {
-        return result;
-      }
-      for (let index = 0; index < datas.length; index++) {
-        const element = datas[index];
-        element["num"] = index + 1;
-        result.push(element);
-      }
-      return result;
+  computed: mapActions({
+    userRows:state=>state.user.items
+  }),
+  methods:{
+    openUserWindow:function(){
+       this.$state.modal.commit("open")
     }
+  },
+  created(){
+    this.$state.dispatch("user/init")
   }
 };
 </script>
