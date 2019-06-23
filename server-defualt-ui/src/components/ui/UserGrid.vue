@@ -25,7 +25,7 @@
             <td>{{row.username}}</td>
             <td>{{row.locked}}</td>
             <td>
-              <a href="javascript:void(0);" v-bind:uid="row.uid"></a>
+              <a href="javascript:void(0);" v-bind:uid="row.uid" v-on:click.stop="openWindow(row.uid)" >open</a>
             </td>
           </tr>
         </tbody>
@@ -59,24 +59,30 @@
   </div>
 </template>
 <script>
-import {mapState,mapActions} from 'vuex'
+import {mapState,mapGetters} from 'vuex'
 export default {
   data: function() {
     return {
       pageNum: 1
     };
   },
-  props: ["pageSize", "tableDatas"],
-  computed: mapActions({
-    userRows:state=>state.user.items
-  }),
+  props: ["pageSize"],
+  computed:{
+    ...mapState({
+    userRows:state=>state.user.items,
+    })
+  },
   methods:{
-    openUserWindow:function(){
-       this.$state.modal.commit("open")
-    }
+    openWindow:function(uid){
+      let userData = this.getItemById()(uid);
+       this.$store.dispatch("user/openModal",userData)
+    },
+    ...mapGetters({
+      "getItemById":'user/getItemById'
+    })
   },
   created(){
-    this.$state.dispatch("user/init")
+    this.$store.dispatch("user/init")
   }
 };
 </script>
