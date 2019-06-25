@@ -7,7 +7,7 @@
         <form>
             <div class="form-group">
               <label for="uid">uid</label>
-              <input type="uid" class="form-control" id="uid" aria-describedby="uid" v-model="uid">
+              <input type="uid" class="form-control" id="uid" aria-describedby="uid" v-model="uid" disabled>
             </div>
             <div class="form-group">
               <label for="username">用户名</label>

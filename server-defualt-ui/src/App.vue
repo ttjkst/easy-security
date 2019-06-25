@@ -14,7 +14,7 @@
 </template>
 
 <script>
-import HelloWorld from "@/components/ui/UserGrid.vue";
+import HelloWorld from "@/components/ui/user/UserGrid.vue";
 import ToolBar from "@/components/ui/ToolBar.vue";
 import UserModal from "@/components/ui/UserModal.vue";
 import { mapGetters } from "vuex";
