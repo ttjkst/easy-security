@@ -25,7 +25,7 @@
         <table class="table table-hover table-bordered">
           <thead>
             <tr>
-              <th scope="col">#</th>
+              <th scope="col" class="s-table-check-header"><input type="checkbox" ></th>
               <th scope="col">UID</th>
               <th scope="col">用户名</th>
               <th scope="col">locked</th>
@@ -34,7 +34,7 @@
           </thead>
           <tbody>
             <tr v-for="row in userRows" v-bind:key="row.num">
-              <th scope="row">{{row.num}}</th>
+              <th scope="row" class="s-table-check-header" > <input type="checkbox" v-bind:row-num='row.num'></th>
               <td>{{row.uid}}</td>
               <td>{{row.username}}</td>
               <td>{{row.locked}}</td>
@@ -109,3 +109,9 @@ export default {
   }
 };
 </script>
+<style>
+.s-table-check-header {
+      width: 2rem;
+}
+</style>
+
