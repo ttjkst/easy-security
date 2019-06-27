@@ -21,7 +21,7 @@ const mutations ={
         state.showItem.password = payload
     },
     updateUsername(state,payload){
-        state.showItem.username = payload
+        state.showItem.username = payload 
     }
 
 };

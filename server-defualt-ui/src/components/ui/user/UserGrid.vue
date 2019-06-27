@@ -21,8 +21,11 @@
           <button type="button" class="btn btn-danger">删除</button>
         </div>
       </div>
-      <div class="card-body">
-        <table class="table table-hover table-bordered">
+      <div 
+   
+      >
+         <!-- class="card-body" -->
+        <table class="table table-hover table-bordered card-body">
           <thead>
             <tr>
               <th scope="col" class="s-table-check-header"><input type="checkbox" ></th>

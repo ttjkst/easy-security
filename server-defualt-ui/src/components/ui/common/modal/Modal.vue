@@ -1,6 +1,6 @@
 <template>
 <div  v-bind:class="[{show:'show'},'modal']" tabindex="-1" role="dialog"  v-bind:style="this.show?'display:block;':''">
-  <div class="modal-dialog" role="document">
+  <div v-bind:class="[size,'modal-dialog']" role="document">
     <div class="modal-content">
       <div class="modal-header">
         <slot name="title"></slot>
@@ -23,7 +23,8 @@ export default {
     props:["initShow"],
     data:function(){
         return {
-            show:this.initShow
+            show:this.initShow,
+            size:this.initSize==null?"modal-sm":this.initSize
         }
     },
     methods:{
