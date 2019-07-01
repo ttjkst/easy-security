@@ -23,37 +23,20 @@
               <div class="card-header">
                 未分配的角色
               </div>
-              <ul class="list-group list-group-flush">
-                <li class="list-group-item">Cras justo odio</li>
-                <li class="list-group-item">Dapibus ac facilisis in</li>
-                <li class="list-group-item">Vestibulum at eros</li>
-              </ul>
+              <div class="list-group list-group-flush text-center">
+                <button v-for="role in noAllocations" 
+                 v-bind:class="[{'list-group-item-action active':role.active},'list-group-item']" 
+                 v-bind:key="role.roleId"
+                 v-on:click.stop="toggleRoleActive(role.roleId)"
+                >{{role.roleName}}</button>
+              </div>
           </div>
            <div class="card">
               <div class="card-header">
                 已经分配的角色
               </div>
             <div class="card-body v-has-prower-body">
-              <span class="badge badge-secondary">boss</span>
-              <span class="badge badge-secondary">开发</span>
-              <span class="badge badge-secondary">设计</span>
-              <span class="badge badge-secondary">审计</span>
-              <span class="badge badge-secondary">项目经理</span>
-              <span class="badge badge-secondary">boss</span>
-              <span class="badge badge-secondary">开发</span>
-              <span class="badge badge-secondary">设计</span>
-              <span class="badge badge-secondary">审计</span>
-              <span class="badge badge-secondary">项目经理</span>
-              <span class="badge badge-secondary">boss</span>
-              <span class="badge badge-secondary">开发</span>
-              <span class="badge badge-secondary">设计</span>
-              <span class="badge badge-secondary">审计</span>
-              <span class="badge badge-secondary">项目经理</span>
-              <span class="badge badge-secondary">boss</span>
-              <span class="badge badge-secondary">开发</span>
-              <span class="badge badge-secondary">设计</span>
-              <span class="badge badge-secondary">审计</span>
-              <span class="badge badge-secondary">项目经理</span>
+              <span class="badge badge-secondary" v-for="role in hasAllocations" v-bind:key="role.roleId" >{{role.roleName}}</span>
             </div>
           </div>
 
@@ -70,6 +53,39 @@ import { mapGetters, mapMutations } from 'vuex';
 
 const root  = {root:true}
 export default {
+    data:function(){
+        return {
+          noAllocations:[
+            {roleId:1,roleName:"项目1",des:"",active:false},
+            {roleId:2,roleName:"项目2",des:"",active:false},
+            {roleId:3,roleName:"项目3",des:"",active:false},
+            {roleId:4,roleName:"项目4",des:"",active:false},
+            {roleId:5,roleName:"项目5",des:"",active:false}
+          ],
+          hasAllocations:[
+            {roleId:6,roleName:"项目1",des:""},
+            {roleId:7,roleName:"项目2",des:""},
+            {roleId:8,roleName:"项目3",des:""},
+            {roleId:9,roleName:"项目4",des:""},
+            {roleId:10,roleName:"项目5",des:""},
+            {roleId:11,roleName:"项目1",des:""},
+            {roleId:12,roleName:"项目2",des:""},
+            {roleId:13,roleName:"项目3",des:""},
+            {roleId:14,roleName:"项目4",des:""},
+            {roleId:15,roleName:"项目5",des:""},
+            {roleId:16,roleName:"项目1",des:""},
+            {roleId:17,roleName:"项目2",des:""},
+            {roleId:18,roleName:"项目3",des:""},
+            {roleId:19,roleName:"项目4",des:""},
+            {roleId:20,roleName:"项目5",des:""},
+            {roleId:21,roleName:"项目1",des:""},
+            {roleId:22,roleName:"项目2",des:""},
+            {roleId:23,roleName:"项目3",des:""},
+            {roleId:24,roleName:"项目4",des:""},
+            {roleId:25,roleName:"项目5",des:""}
+          ]
+        }
+    },
     computed:{
           uid:{
             get(){
@@ -101,7 +117,14 @@ export default {
           }),
     },
     methods:{
-        ...mapMutations({
+      getRoleById:function(roleId){
+        return  this.noAllocations.find(x=>x.roleId==roleId)
+      },
+      toggleRoleActive:function(roleId){
+         let role    =  this.getRoleById(roleId);
+         role.active =  role.active?false:true; 
+      },
+      ...mapMutations({
           "close":"modal/close"
         })
     },

@@ -1,5 +1,5 @@
 <template>
-<div  v-bind:class="[{show:'show'},'modal']" tabindex="-1" role="dialog"  v-bind:style="this.show?'display:block;':''">
+<div  v-bind:class="[{'show':show},'modal']" tabindex="-1" role="dialog"  v-bind:style="this.show?'display:block;':''">
   <div v-bind:class="[size,'modal-dialog']" role="document">
     <div class="modal-content">
       <div class="modal-header">
