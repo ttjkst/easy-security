@@ -19,7 +19,8 @@
             </div>
           </form>
           
-          <div class="card">
+          <div class="row container-fluid no-gutters">
+          <div class="card col-lg-5">
               <div class="card-header">
                 未分配的角色
               </div>
@@ -31,7 +32,11 @@
                 >{{role.roleName}}</button>
               </div>
           </div>
-           <div class="card">
+          <div class="col-lg-2">
+                <button class="btn btn-primary  float-left align-middle" type="submit">Button</button>
+                <button class="btn btn-primary  float-right align-middle" type="submit">Button</button>
+          </div>
+           <div class="card col-lg-5">
               <div class="card-header">
                 已经分配的角色
               </div>
@@ -39,7 +44,7 @@
               <span class="badge badge-secondary" v-for="role in hasAllocations" v-bind:key="role.roleId" >{{role.roleName}}</span>
             </div>
           </div>
-
+        </div>
       </template>
       <template v-slot:footer>
         <button type="button" class="btn btn-secondary"  v-on:click="close" >关闭</button>

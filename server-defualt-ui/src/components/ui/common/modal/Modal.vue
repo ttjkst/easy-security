@@ -20,7 +20,7 @@
 </template>
 <script>
 export default {
-    props:["initShow"],
+    props:["initShow","initSize"],
     data:function(){
         return {
             show:this.initShow,
