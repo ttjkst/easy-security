@@ -32,9 +32,10 @@
                 >{{role.roleName}}</button>
               </div>
           </div>
-          <div class="col-lg-2">
-                <button class="btn btn-primary  float-left align-middle" type="submit">Button</button>
-                <button class="btn btn-primary  float-right align-middle" type="submit">Button</button>
+          <div class="col-lg-2 d-flex justify-content-center">
+            <div class="align-self-center">
+              <i class="fas fa-angle-double-right fa-4x"></i>
+            </div>
           </div>
            <div class="card col-lg-5">
               <div class="card-header">
