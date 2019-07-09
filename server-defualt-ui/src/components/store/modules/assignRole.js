@@ -1,4 +1,3 @@
-import { stat } from "fs";
 
 const state={
         roles: {noAllocations:[],hasAllocations:[]},
@@ -8,6 +7,7 @@ const state={
 const getters = {
     getNoAllocations:(state)=>state.noAllocations,
     getHasAllocations:(state)=>state.hasAllocations,
+    getRoleInNoAllocationsById:(state)=>id=>state.noAllocations.find(x=>x.roleId==id),
     getDataChangeNum:(state)=>state.dataChangeNum,
     isDataLoadedFromServer:(state)=>state.dataChangeNum==0
 };
@@ -21,13 +21,38 @@ const mutations ={
     },
     loadDate:function(state,data){
         state.roles = data;
+    },
+    addToHasAllocations:function(state,role){
+        state.roles.hasAllocations.push(role);
+    },
+    addToNoAllocations:function(state,role){
+        state.roles.noAllocations.push(role);
+    },
+    removeFromHasAllocations:function(state,role){
+        let index = state.roles.hasAllocations.findIndex(x=>x.roleId==role.roleId);
+        if(index){
+            state.roles.hasAllocations.splice(index,1);
+        }
+    },
+    removeFromNoAllocations:function(state,role){
+        let index = state.roles.noAllocations.findIndex(x=>x.roleId==role.roleId);
+        if(index){
+            state.roles.noAllocations.splice(index,1);
+        }
+    },
+    changeToNoAllocations(state,role){
+        mutations.addToNoAllocations(state,role);
+        mutations.removeFromHasAllocations(state,role);
+    },
+    changeToHasAllocations(state,role){
+        mutations.addToHasAllocations(state,role);
+        mutations.removeFromNoAllocations(state,role);
     }
-
 };
 
 const actions = {
     init(context){
-        context.commit("init",{
+        context.commit("loadDate",{
             noAllocations:[
             {roleId:1,roleName:"项目1",des:"",active:false},
             {roleId:2,roleName:"项目2",des:"",active:false},
@@ -58,6 +83,12 @@ const actions = {
             {roleId:25,roleName:"项目5",des:""}
           ]
         })
+    },
+    changeToHasAllocations(context,role){
+        context.commit("changeToHasAllocations",role)
+    },
+    changeToNoAllocations(context,role){
+        context.commit("changeToNoAllocations",role)
     }
 }
 export default {
