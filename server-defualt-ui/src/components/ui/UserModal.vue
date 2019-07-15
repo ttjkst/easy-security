@@ -18,6 +18,7 @@
               <input type="password" class="form-control" id="password" v-model="password">
             </div>
           </form>
+          <AssignRole/>
       </template>
       <template v-slot:footer>
         <button type="button" class="btn btn-secondary"  v-on:click="close" >关闭</button>
@@ -26,44 +27,12 @@
     </Modal>
 </template>
 <script>
-import Modal from './common/modal/Modal.vue'
+import Modal from './common/modal/Modal.vue';
+import AssignRole from './role/AssignRole.vue';
 import { mapGetters, mapMutations } from 'vuex';
 
 const root  = {root:true}
 export default {
-    data:function(){
-        return {
-          noAllocations:[
-            {roleId:1,roleName:"项目1",des:"",active:false},
-            {roleId:2,roleName:"项目2",des:"",active:false},
-            {roleId:3,roleName:"项目3",des:"",active:false},
-            {roleId:4,roleName:"项目4",des:"",active:false},
-            {roleId:5,roleName:"项目5",des:"",active:false}
-          ],
-          hasAllocations:[
-            {roleId:6,roleName:"项目1",des:""},
-            {roleId:7,roleName:"项目2",des:""},
-            {roleId:8,roleName:"项目3",des:""},
-            {roleId:9,roleName:"项目4",des:""},
-            {roleId:10,roleName:"项目5",des:""},
-            {roleId:11,roleName:"项目1",des:""},
-            {roleId:12,roleName:"项目2",des:""},
-            {roleId:13,roleName:"项目3",des:""},
-            {roleId:14,roleName:"项目4",des:""},
-            {roleId:15,roleName:"项目5",des:""},
-            {roleId:16,roleName:"项目1",des:""},
-            {roleId:17,roleName:"项目2",des:""},
-            {roleId:18,roleName:"项目3",des:""},
-            {roleId:19,roleName:"项目4",des:""},
-            {roleId:20,roleName:"项目5",des:""},
-            {roleId:21,roleName:"项目1",des:""},
-            {roleId:22,roleName:"项目2",des:""},
-            {roleId:23,roleName:"项目3",des:""},
-            {roleId:24,roleName:"项目4",des:""},
-            {roleId:25,roleName:"项目5",des:""}
-          ]
-        }
-    },
     computed:{
           uid:{
             get(){
@@ -95,13 +64,6 @@ export default {
           }),
     },
     methods:{
-      getRoleById:function(roleId){
-        return  this.noAllocations.find(x=>x.roleId==roleId)
-      },
-      toggleRoleActive:function(roleId){
-         let role    =  this.getRoleById(roleId);
-         role.active =  role.active?false:true; 
-      },
       ...mapMutations({
           "close":"modal/close"
         })
@@ -116,7 +78,7 @@ export default {
         }
     },
     components: {
-    Modal
+    Modal,AssignRole
   }
 }
 </script>

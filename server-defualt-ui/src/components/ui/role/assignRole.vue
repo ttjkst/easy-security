@@ -27,3 +27,23 @@
           </div>
         </div>
 </template>
+<script>
+import { mapGetters,mapMutations } from "vuex";
+export default {
+    computed:{
+       ...mapGetters({
+            "noAllocations":"assignRole/getNoAllocations",
+            "hasAllocations":"assignRole/getHasAllocations"
+          }),
+    },
+    methods:{
+         ...mapMutations({
+          "toggleRoleActive":"assignRole/toggleRoleActive"
+        })
+    },
+    created() {
+      this.$store.dispatch("assignRole/init");
+    }
+}
+</script>
+

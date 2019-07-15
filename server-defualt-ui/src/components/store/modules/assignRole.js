@@ -5,9 +5,9 @@ const state={
 };
 
 const getters = {
-    getNoAllocations:(state)=>state.noAllocations,
-    getHasAllocations:(state)=>state.hasAllocations,
-    getRoleInNoAllocationsById:(state)=>id=>state.noAllocations.find(x=>x.roleId==id),
+    getNoAllocations:(state)=>state.roles.noAllocations,
+    getHasAllocations:(state)=>state.roles.hasAllocations,
+    getRoleInNoAllocationsById:(state)=>id=>state.roles.noAllocations.find(x=>x.roleId==id),
     getDataChangeNum:(state)=>state.dataChangeNum,
     isDataLoadedFromServer:(state)=>state.dataChangeNum==0
 };
@@ -47,6 +47,10 @@ const mutations ={
     changeToHasAllocations(state,role){
         mutations.addToHasAllocations(state,role);
         mutations.removeFromNoAllocations(state,role);
+    },
+    toggleRoleActive(state,roleId){
+        let role    =  getters.getRoleInNoAllocationsById(state)(roleId);
+        role.active =  role.active?false:true; 
     }
 };
 
