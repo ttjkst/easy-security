@@ -8,6 +8,7 @@ const getters = {
     getNoAllocations:(state)=>state.roles.noAllocations,
     getHasAllocations:(state)=>state.roles.hasAllocations,
     getRoleInNoAllocationsById:(state)=>id=>state.roles.noAllocations.find(x=>x.roleId==id),
+    getRoleInHasAllocationsById:(state)=>id=>state.roles.hasAllocations.find(x=>x.roleId==id),
     getDataChangeNum:(state)=>state.dataChangeNum,
     isDataLoadedFromServer:(state)=>state.dataChangeNum==0
 };
@@ -30,13 +31,13 @@ const mutations ={
     },
     removeFromHasAllocations:function(state,role){
         let index = state.roles.hasAllocations.findIndex(x=>x.roleId==role.roleId);
-        if(index){
+        if(index!=-1){
             state.roles.hasAllocations.splice(index,1);
         }
     },
     removeFromNoAllocations:function(state,role){
         let index = state.roles.noAllocations.findIndex(x=>x.roleId==role.roleId);
-        if(index){
+        if(index!=-1){
             state.roles.noAllocations.splice(index,1);
         }
     },
@@ -48,8 +49,20 @@ const mutations ={
         mutations.addToHasAllocations(state,role);
         mutations.removeFromNoAllocations(state,role);
     },
-    toggleRoleActive(state,roleId){
+    changeRoleToUse(state){
+        let activeRoles = state.roles.noAllocations.filter(x=>x.active);
+        activeRoles.forEach(element => mutations.changeToHasAllocations(state,element));
+    },
+    changeRoleToNoUse(state){
+        let activeRoles = state.roles.hasAllocations.filter(x=>x.active);
+        activeRoles.forEach(element => mutations.changeToNoAllocations(state,element));
+    },
+    toggleNoAllocationsRoleActive(state,roleId){
         let role    =  getters.getRoleInNoAllocationsById(state)(roleId);
+        role.active =  role.active?false:true; 
+    },
+    toggleHasAllocationsRoleActive(state,roleId){
+        let role    =  getters.getRoleInHasAllocationsById(state)(roleId);
         role.active =  role.active?false:true; 
     }
 };
@@ -65,26 +78,9 @@ const actions = {
             {roleId:5,roleName:"项目5",des:"",active:false}
           ],
           hasAllocations:[
-            {roleId:6,roleName:"项目1",des:""},
-            {roleId:7,roleName:"项目2",des:""},
-            {roleId:8,roleName:"项目3",des:""},
-            {roleId:9,roleName:"项目4",des:""},
-            {roleId:10,roleName:"项目5",des:""},
-            {roleId:11,roleName:"项目1",des:""},
-            {roleId:12,roleName:"项目2",des:""},
-            {roleId:13,roleName:"项目3",des:""},
-            {roleId:14,roleName:"项目4",des:""},
-            {roleId:15,roleName:"项目5",des:""},
-            {roleId:16,roleName:"项目1",des:""},
-            {roleId:17,roleName:"项目2",des:""},
-            {roleId:18,roleName:"项目3",des:""},
-            {roleId:19,roleName:"项目4",des:""},
-            {roleId:20,roleName:"项目5",des:""},
-            {roleId:21,roleName:"项目1",des:""},
-            {roleId:22,roleName:"项目2",des:""},
-            {roleId:23,roleName:"项目3",des:""},
-            {roleId:24,roleName:"项目4",des:""},
-            {roleId:25,roleName:"项目5",des:""}
+            {roleId:6,roleName:"项目1",des:"",active:false},
+            {roleId:7,roleName:"项目2",des:"",active:false},
+ 
           ]
         })
     },
@@ -93,6 +89,12 @@ const actions = {
     },
     changeToNoAllocations(context,role){
         context.commit("changeToNoAllocations",role)
+    },
+    changeRoleToUse(context){
+        context.commit("changeRoleToUse");
+    },
+    changeRoleToNoUse(context){
+        context.commit("changeRoleToNoUse");
     }
 }
 export default {

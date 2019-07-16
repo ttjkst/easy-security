@@ -82,8 +82,3 @@ export default {
   }
 }
 </script>
-<style>
-.v-has-prower-body .badge {
-      margin-left: 0.5rem;
-}
-</style>
