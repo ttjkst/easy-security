@@ -27,7 +27,7 @@ public class OAuth2ClientUserService implements OAuth2UserService<OAuth2UserRequ
                     .getProviderDetails().getUserInfoEndpoint().getUri())
                     .build()
                     .toUri();
-            RequestEntity<?> requestEntity         = new RequestEntity<>(headers, HttpMethod.GET, uri);
+            RequestEntity<?> requestEntity          = new RequestEntity<>(headers, HttpMethod.GET, uri);
             ResponseEntity<UserInfoEntity> exchange = restTemplate.exchange(requestEntity, UserInfoEntity.class);
             UserInfoEntity userInfoEntity = exchange.getBody();
             return new OAuth2UserForUserInfo(AuthorityUtils.packGrantedAuthoritys(userInfoEntity.getAuthorities()), userInfoEntity.getUsername(), userInfoEntity.getAuthorityEntities(),userRequest.getAccessToken().getTokenValue());

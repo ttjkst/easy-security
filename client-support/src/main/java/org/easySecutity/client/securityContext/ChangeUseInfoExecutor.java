@@ -34,7 +34,7 @@ public class ChangeUseInfoExecutor extends SecurityContextRepositoryListenerAdpt
                     OAuth2LoginAuthenticationToken olderToken = (OAuth2LoginAuthenticationToken) authentication;
                     OAuth2LoginAuthenticationToken newToken   = switchToNewToken(olderToken, clientUserInfoEntity);
                     context.setAuthentication(newToken);
-                    waitMap.remove(userForUserInfo.getUniqueId());
+                    //waitMap.remove(userForUserInfo.getUniqueId());
                 }
         }
     }
