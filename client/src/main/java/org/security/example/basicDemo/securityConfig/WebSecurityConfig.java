@@ -2,6 +2,7 @@ package org.security.example.basicDemo.securityConfig;
 
 
 import org.easySecutity.client.dsl.ClientDsl;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.config.BeanIds;
@@ -9,6 +10,8 @@ import org.springframework.security.config.annotation.authentication.builders.Au
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
 import org.springframework.security.config.annotation.web.configuration.WebSecurityConfigurerAdapter;
+import org.springframework.security.oauth2.client.authentication.OAuth2LoginAuthenticationProvider;
+import org.springframework.security.oauth2.client.endpoint.OAuth2AccessTokenResponseClient;
 
 
 @EnableWebSecurity
@@ -38,7 +41,7 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
 
 	@Override
 	@Bean(name = BeanIds.AUTHENTICATION_MANAGER)
-	protected AuthenticationManager authenticationManager() throws Exception {
+	public AuthenticationManager authenticationManager() throws Exception {
 		return super.authenticationManager();
 	}
 }

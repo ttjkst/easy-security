@@ -2,16 +2,16 @@ package org.easySecurity.server.user.github;
 
 public class GithubUserPlan implements java.io.Serializable {
     private static final long serialVersionUID = 4840806615903981692L;
-    private int private_repos;
+    private Integer private_repos;
     private String name;
-    private int collaborators;
-    private int space;
+    private Integer collaborators;
+    private Integer space;
 
-    public int getPrivate_repos() {
+    public Integer getPrivate_repos() {
         return this.private_repos;
     }
 
-    public void setPrivate_repos(int private_repos) {
+    public void setPrivate_repos(Integer private_repos) {
         this.private_repos = private_repos;
     }
 
@@ -23,19 +23,19 @@ public class GithubUserPlan implements java.io.Serializable {
         this.name = name;
     }
 
-    public int getCollaborators() {
+    public Integer getCollaborators() {
         return this.collaborators;
     }
 
-    public void setCollaborators(int collaborators) {
+    public void setCollaborators(Integer collaborators) {
         this.collaborators = collaborators;
     }
 
-    public int getSpace() {
+    public Integer getSpace() {
         return this.space;
     }
 
-    public void setSpace(int space) {
+    public void setSpace(Integer space) {
         this.space = space;
     }
 }

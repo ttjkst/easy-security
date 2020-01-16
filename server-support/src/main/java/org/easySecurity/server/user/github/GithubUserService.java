@@ -16,7 +16,6 @@ import java.net.URI;
 import java.util.Collections;
 import java.util.HashMap;
 import java.util.Map;
-import java.util.function.Function;
 
 public class GithubUserService implements OAuth2ServerUserService<OAuth2UserRequest, OAuth2User> {
 

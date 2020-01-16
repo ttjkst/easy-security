@@ -13,7 +13,6 @@ import org.springframework.security.core.Authentication;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.core.userdetails.UserDetails;
-import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.oauth2.provider.ClientDetails;
 import org.springframework.security.oauth2.provider.ClientDetailsService;
 import org.springframework.security.oauth2.provider.OAuth2Authentication;
@@ -33,8 +32,6 @@ public class UserController {
 
     private final static Log logger  = LogFactory.getLog(UserController.class);
 
-    @Autowired
-    private UserDetailsService userDetailsService;
 
     @Autowired
     private TokenStoreUseTokenEnhancer tokenStoreUseTokenEnhancer;
@@ -47,7 +44,6 @@ public class UserController {
     @ResponseBody
     @PreAuthorize("hasAuthorty('SCOPE_userInfo')")
     public UserInfoEntity queryUserInfoByName(){
-        Map<String,Object> map = new HashMap<>(1);
         UserDetails userDetails;
         String clientId;
         String accessCode;

@@ -1,6 +1,5 @@
 package org.easySecurity.server.toClient;
 
-import org.easySecurity.core.user.UserInfo;
 import org.easySecurity.server.user.OAuth2UserWithMultOAuth2Info;
 
 /**

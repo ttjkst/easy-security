@@ -34,8 +34,8 @@ public class ClientSenderUseCredential implements ClientSender{
             URI uri = UriComponentsBuilder.fromUriString(changeUrl)
                     .build()
                     .toUri();
-            RequestEntity<?> requestEntity         = new RequestEntity<>(body,headers, HttpMethod.POST, uri);
-            ResponseEntity<Void> exchange = restTemplate.exchange(requestEntity, Void.TYPE);
+            RequestEntity<?> requestEntity = new RequestEntity<>(body,headers, HttpMethod.POST, uri);
+            ResponseEntity<Void> exchange  = restTemplate.exchange(requestEntity, Void.TYPE);
         }
 
     }

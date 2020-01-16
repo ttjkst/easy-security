@@ -124,7 +124,7 @@ public class ServerDsl extends AbstractHttpConfigurer<ServerDsl, HttpSecurity> {
     }
 
     public ServerDsl enableRoleToScope(){
-        enableRoleToScope= true;
+        this.enableRoleToScope= true;
         return this;
     }
 

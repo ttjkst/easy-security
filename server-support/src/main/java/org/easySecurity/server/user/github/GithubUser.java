@@ -8,24 +8,24 @@ public class GithubUser implements Serializable, UniqueAccessor {
     private static final long serialVersionUID = 7281148584651833497L;
     private String gists_url;
     private String repos_url;
-    private boolean two_factor_authentication;
+    private Boolean two_factor_authentication;
     private String following_url;
     private String bio;
     private String created_at;
     private String login;
     private String type;
     private String blog;
-    private int private_gists;
-    private int total_private_repos;
+    private Integer private_gists;
+    private Integer total_private_repos;
     private String subscriptions_url;
     private String updated_at;
-    private boolean site_admin;
-    private int disk_usage;
-    private int collaborators;
+    private Boolean site_admin;
+    private Integer disk_usage;
+    private Integer collaborators;
     private String company;
-    private int owned_private_repos;
-    private int id;
-    private int public_repos;
+    private Integer owned_private_repos;
+    private Integer id;
+    private Integer public_repos;
     private String gravatar_id;
     private GithubUserPlan plan;
     private String email;
@@ -33,14 +33,14 @@ public class GithubUser implements Serializable, UniqueAccessor {
     private Object hireable;
     private String starred_url;
     private String followers_url;
-    private int public_gists;
+    private Integer public_gists;
     private String url;
     private String received_events_url;
-    private int followers;
+    private Integer followers;
     private String avatar_url;
     private String events_url;
     private String html_url;
-    private int following;
+    private Integer following;
     private String name;
     private String location;
     private String node_id;
@@ -49,7 +49,7 @@ public class GithubUser implements Serializable, UniqueAccessor {
         return this.gists_url;
     }
 
-    public void setGists_url(String gists_url) {
+    public void setGists_url(final String gists_url) {
         this.gists_url = gists_url;
     }
 
@@ -57,15 +57,15 @@ public class GithubUser implements Serializable, UniqueAccessor {
         return this.repos_url;
     }
 
-    public void setRepos_url(String repos_url) {
+    public void setRepos_url(final String repos_url) {
         this.repos_url = repos_url;
     }
 
-    public boolean getTwo_factor_authentication() {
+    public Boolean getTwo_factor_authentication() {
         return this.two_factor_authentication;
     }
 
-    public void setTwo_factor_authentication(boolean two_factor_authentication) {
+    public void setTwo_factor_authentication(final Boolean two_factor_authentication) {
         this.two_factor_authentication = two_factor_authentication;
     }
 
@@ -73,7 +73,7 @@ public class GithubUser implements Serializable, UniqueAccessor {
         return this.following_url;
     }
 
-    public void setFollowing_url(String following_url) {
+    public void setFollowing_url(final String following_url) {
         this.following_url = following_url;
     }
 
@@ -81,7 +81,7 @@ public class GithubUser implements Serializable, UniqueAccessor {
         return this.bio;
     }
 
-    public void setBio(String bio) {
+    public void setBio(final String bio) {
         this.bio = bio;
     }
 
@@ -89,7 +89,7 @@ public class GithubUser implements Serializable, UniqueAccessor {
         return this.created_at;
     }
 
-    public void setCreated_at(String created_at) {
+    public void setCreated_at(final String created_at) {
         this.created_at = created_at;
     }
 
@@ -97,7 +97,7 @@ public class GithubUser implements Serializable, UniqueAccessor {
         return this.login;
     }
 
-    public void setLogin(String login) {
+    public void setLogin(final String login) {
         this.login = login;
     }
 
@@ -105,7 +105,7 @@ public class GithubUser implements Serializable, UniqueAccessor {
         return this.type;
     }
 
-    public void setType(String type) {
+    public void setType(final String type) {
         this.type = type;
     }
 
@@ -113,23 +113,23 @@ public class GithubUser implements Serializable, UniqueAccessor {
         return this.blog;
     }
 
-    public void setBlog(String blog) {
+    public void setBlog(final String blog) {
         this.blog = blog;
     }
 
-    public int getPrivate_gists() {
+    public Integer getPrivate_gists() {
         return this.private_gists;
     }
 
-    public void setPrivate_gists(int private_gists) {
+    public void setPrivate_gists( Integer private_gists) {
         this.private_gists = private_gists;
     }
 
-    public int getTotal_private_repos() {
+    public Integer getTotal_private_repos() {
         return this.total_private_repos;
     }
 
-    public void setTotal_private_repos(int total_private_repos) {
+    public void setTotal_private_repos(final Integer total_private_repos) {
         this.total_private_repos = total_private_repos;
     }
 
@@ -137,7 +137,7 @@ public class GithubUser implements Serializable, UniqueAccessor {
         return this.subscriptions_url;
     }
 
-    public void setSubscriptions_url(String subscriptions_url) {
+    public void setSubscriptions_url(final String subscriptions_url) {
         this.subscriptions_url = subscriptions_url;
     }
 
@@ -145,31 +145,31 @@ public class GithubUser implements Serializable, UniqueAccessor {
         return this.updated_at;
     }
 
-    public void setUpdated_at(String updated_at) {
+    public void setUpdated_at(final String updated_at) {
         this.updated_at = updated_at;
     }
 
-    public boolean getSite_admin() {
+    public Boolean getSite_admin() {
         return this.site_admin;
     }
 
-    public void setSite_admin(boolean site_admin) {
+    public void setSite_admin(final Boolean site_admin) {
         this.site_admin = site_admin;
     }
 
-    public int getDisk_usage() {
+    public Integer getDisk_usage() {
         return this.disk_usage;
     }
 
-    public void setDisk_usage(int disk_usage) {
+    public void setDisk_usage(final Integer disk_usage) {
         this.disk_usage = disk_usage;
     }
 
-    public int getCollaborators() {
+    public Integer getCollaborators() {
         return this.collaborators;
     }
 
-    public void setCollaborators(int collaborators) {
+    public void setCollaborators(final Integer collaborators) {
         this.collaborators = collaborators;
     }
 
@@ -177,31 +177,31 @@ public class GithubUser implements Serializable, UniqueAccessor {
         return this.company;
     }
 
-    public void setCompany(String company) {
+    public void setCompany(final String company) {
         this.company = company;
     }
 
-    public int getOwned_private_repos() {
+    public Integer getOwned_private_repos() {
         return this.owned_private_repos;
     }
 
-    public void setOwned_private_repos(int owned_private_repos) {
+    public void setOwned_private_repos(final Integer owned_private_repos) {
         this.owned_private_repos = owned_private_repos;
     }
 
-    public int getId() {
+    public Integer getId() {
         return this.id;
     }
 
-    public void setId(int id) {
+    public void setId(final Integer id) {
         this.id = id;
     }
 
-    public int getPublic_repos() {
+    public Integer getPublic_repos() {
         return this.public_repos;
     }
 
-    public void setPublic_repos(int public_repos) {
+    public void setPublic_repos(final Integer public_repos) {
         this.public_repos = public_repos;
     }
 
@@ -209,7 +209,7 @@ public class GithubUser implements Serializable, UniqueAccessor {
         return this.gravatar_id;
     }
 
-    public void setGravatar_id(String gravatar_id) {
+    public void setGravatar_id(final String gravatar_id) {
         this.gravatar_id = gravatar_id;
     }
 
@@ -217,7 +217,7 @@ public class GithubUser implements Serializable, UniqueAccessor {
         return this.plan;
     }
 
-    public void setPlan(GithubUserPlan plan) {
+    public void setPlan(final GithubUserPlan plan) {
         this.plan = plan;
     }
 
@@ -225,7 +225,7 @@ public class GithubUser implements Serializable, UniqueAccessor {
         return this.email;
     }
 
-    public void setEmail(String email) {
+    public void setEmail(final String email) {
         this.email = email;
     }
 
@@ -233,7 +233,7 @@ public class GithubUser implements Serializable, UniqueAccessor {
         return this.organizations_url;
     }
 
-    public void setOrganizations_url(String organizations_url) {
+    public void setOrganizations_url(final String organizations_url) {
         this.organizations_url = organizations_url;
     }
 
@@ -241,7 +241,7 @@ public class GithubUser implements Serializable, UniqueAccessor {
         return this.hireable;
     }
 
-    public void setHireable(Object hireable) {
+    public void setHireable(final Object hireable) {
         this.hireable = hireable;
     }
 
@@ -249,7 +249,7 @@ public class GithubUser implements Serializable, UniqueAccessor {
         return this.starred_url;
     }
 
-    public void setStarred_url(String starred_url) {
+    public void setStarred_url(final String starred_url) {
         this.starred_url = starred_url;
     }
 
@@ -257,15 +257,15 @@ public class GithubUser implements Serializable, UniqueAccessor {
         return this.followers_url;
     }
 
-    public void setFollowers_url(String followers_url) {
+    public void setFollowers_url(final String followers_url) {
         this.followers_url = followers_url;
     }
 
-    public int getPublic_gists() {
+    public Integer getPublic_gists() {
         return this.public_gists;
     }
 
-    public void setPublic_gists(int public_gists) {
+    public void setPublic_gists(final Integer public_gists) {
         this.public_gists = public_gists;
     }
 
@@ -273,7 +273,7 @@ public class GithubUser implements Serializable, UniqueAccessor {
         return this.url;
     }
 
-    public void setUrl(String url) {
+    public void setUrl(final String url) {
         this.url = url;
     }
 
@@ -281,15 +281,15 @@ public class GithubUser implements Serializable, UniqueAccessor {
         return this.received_events_url;
     }
 
-    public void setReceived_events_url(String received_events_url) {
+    public void setReceived_events_url(final String received_events_url) {
         this.received_events_url = received_events_url;
     }
 
-    public int getFollowers() {
+    public Integer getFollowers() {
         return this.followers;
     }
 
-    public void setFollowers(int followers) {
+    public void setFollowers(final Integer followers) {
         this.followers = followers;
     }
 
@@ -297,7 +297,7 @@ public class GithubUser implements Serializable, UniqueAccessor {
         return this.avatar_url;
     }
 
-    public void setAvatar_url(String avatar_url) {
+    public void setAvatar_url(final String avatar_url) {
         this.avatar_url = avatar_url;
     }
 
@@ -305,7 +305,7 @@ public class GithubUser implements Serializable, UniqueAccessor {
         return this.events_url;
     }
 
-    public void setEvents_url(String events_url) {
+    public void setEvents_url(final String events_url) {
         this.events_url = events_url;
     }
 
@@ -313,15 +313,15 @@ public class GithubUser implements Serializable, UniqueAccessor {
         return this.html_url;
     }
 
-    public void setHtml_url(String html_url) {
+    public void setHtml_url(final String html_url) {
         this.html_url = html_url;
     }
 
-    public int getFollowing() {
+    public Integer getFollowing() {
         return this.following;
     }
 
-    public void setFollowing(int following) {
+    public void setFollowing(final Integer following) {
         this.following = following;
     }
 
@@ -329,7 +329,7 @@ public class GithubUser implements Serializable, UniqueAccessor {
         return this.name;
     }
 
-    public void setName(String name) {
+    public void setName(final String name) {
         this.name = name;
     }
 
@@ -337,7 +337,7 @@ public class GithubUser implements Serializable, UniqueAccessor {
         return this.location;
     }
 
-    public void setLocation(String location) {
+    public void setLocation(final String location) {
         this.location = location;
     }
 
@@ -345,7 +345,7 @@ public class GithubUser implements Serializable, UniqueAccessor {
         return this.node_id;
     }
 
-    public void setNode_id(String node_id) {
+    public void setNode_id(final String node_id) {
         this.node_id = node_id;
     }
 

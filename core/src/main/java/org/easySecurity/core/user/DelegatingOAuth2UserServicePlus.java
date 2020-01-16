@@ -42,7 +42,7 @@ public class DelegatingOAuth2UserServicePlus<R extends OAuth2UserRequest, U exte
                 return oAuth2User;
             }catch (Exception e){
                 if(log.isDebugEnabled()){
-                    log.error("load user from service error, this load class is "+service.getClass(),e);
+                    log.debug("load user from service error, this load class is "+service.getClass(),e);
                 }
                 if(e instanceof OAuth2AuthenticationException){
                     exceptions.add((OAuth2AuthenticationException)e);
